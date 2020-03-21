@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>sip messages - My Docs</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">My Docs</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">developer guide <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../introduction/">introduction</a>
+</li>
+                                    
+<li >
+    <a href="../middleware/">middleware</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">sip messages</a>
+</li>
+                                    
+<li >
+    <a href="../sip-dialogs/">sip dialogs</a>
+</li>
+                                    
+<li >
+    <a href="../sip-proxy/">sip proxy</a>
+</li>
+                                    
+<li >
+    <a href="../call-detail-records/">call detail records</a>
+</li>
+                                    
+<li >
+    <a href="../advanced-topics/">advanced topics</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">drachtio server <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../drachtio-server/installing/">installing</a>
+</li>
+                                    
+<li >
+    <a href="../../drachtio-server/running/">running</a>
+</li>
+                                    
+<li >
+    <a href="../../drachtio-server/configuring/">configuring</a>
+</li>
+                                    
+<li >
+    <a href="../../drachtio-server/messaging-protocol/">messaging protocol</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">release notes <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../release-notes/drachtio-srf/release-notes/">drachtio-srf</a>
+</li>
+                                    
+<li >
+    <a href="../../release-notes/drachtio-server/release-notes/">drachtio-server</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../middleware/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../sip-dialogs/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#sip-messages">SIP Messages</a></li>
+            <li><a href="#properties-methods-and-events">Properties, methods and events</a></li>
+            <li><a href="#usage-patterns">Usage patterns</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="sip-messages">SIP Messages</h1>
+<p>In the examples above, we've seen the callback signature <code>(req, res)</code> through which we are passed objects representing a SIP request and an associated response.  These objects are event emitters and have some useful properties and methods attached.  Since we will be interacting with these objects a lot when writing applications, let's review them now.</p>
+<h2 id="properties-methods-and-events">Properties, methods and events</h2>
+<p>The following properties are available on both <code>req</code> and <code>res</code> objects:</p>
+<ul>
+<li><code>type</code>: 'request' or 'response'</li>
+<li><code>body</code>: the SIP message body, if any</li>
+<li><code>payload</code>: an array of content, useful mainly if the message included multipart content.  Each object in the payload array has a <code>type</code> and <code>content</code> property, containing the Content-Type header and the associated content, respectively </li>
+<li><code>source</code>: 'network' or 'application'; the sender of the message</li>
+<li><code>source_address</code>: the IP address of the sender</li>
+<li><code>source_port</code>: the source port of the sender</li>
+<li><code>protocol</code>: the transport protocol being used (e.g., 'udp', 'tcp')</li>
+<li><code>stackTime</code>: the time the message was sent or received by the drachtio server sip stack</li>
+<li><code>calledNumber</code>: the phone number (if any) parsed from the user part of the request uri</li>
+<li><code>callingNumber</code>: the phone number (if any) of the calling party, parsed from the P-Asserted-Identity header if it exists, otherwise from the From header.</li>
+<li><code>raw</code>: a string containing the full, unparsed SIP message</li>
+</ul>
+<p>The  following methods are available on both <code>req</code> and <code>res</code> objects as well:</p>
+<ul>
+<li><code>has(name)</code>: returns true if the message includes the specified header</li>
+<li><code>get(name)</code>: returns the value of a specified SIP header</li>
+<li><code>set(name, value)</code>: sets the value of a specified SIP header</li>
+<li><code>getParsedHeader(name)</code>: returns an object that represents the specified SIP header parsed into components</li>
+</ul>
+<h3 id="request-specific-properties-methods-and-events">Request-specific properties, methods and events</h3>
+<p>The <code>req</code> object additionally has the following properties:</p>
+<ul>
+<li><code>method</code>: the SIP method of the request</li>
+</ul>
+<p>the following methods:</p>
+<ul>
+<li><code>isNewInvite()</code>: returns true if the request is a new INVITE (vs a re-INVITE, or a non-INVITE request)</li>
+<li><code>cancel(callback)</code>: cancels an INVITE request that was sent by the application</li>
+<li><code>proxy(opts, callback)</code>: proxies an incoming request.  While this method is available, the preferred usage is to call <code>srf.proxyRequest()</code> instead.</li>
+</ul>
+<p>and emits the following events:</p>
+<ul>
+<li><code>cancel</code>: this event is emitted for an incoming INVITE request, when a CANCEL for that INVITE is subsequently received from the sender.</li>
+<li><code>response</code>: when an application sends a SIP request, an application can listen for the 'response' event to obtain the matching SIP response that is received.</li>
+</ul>
+<h3 id="response-specific-properties-methods-and-events">Response-specific properties, methods and events</h3>
+<p>The <code>res</code> object additionally has the following properties:</p>
+<ul>
+<li><code>status</code>: the SIP response status, as an integer (alias: <code>statusCode</code>)</li>
+<li><code>reason</code>: the SIP reason (e.g. 'Busy Here')</li>
+<li><code>finalResponseSent</code>: true if the response message has been sent (alias: <code>headersSent</code>)</li>
+</ul>
+<p>and the following methods:</p>
+<ul>
+<li><code>send(status, reason, opts, callback)</code>: we have already seen this method used to send a response.  Only the status parameter is required. The callback, if provided, will be invoked with the signature <code>(err, msg)</code> where the <code>msg</code> parameter will contain a representation of the SIP response message sent out over the wire.</li>
+</ul>
+<h2 id="usage-patterns">Usage patterns</h2>
+<p>In the few sample code snippets we've looked at so far, we have been receiving SIP requests and then sending SIP responses in return.  </p>
+<p>However, we can also do the reverse -- send out a SIP request and receive a response back.  In either case, we are dealing with the request and response objects described above, but different methods and events may apply.  Below some of the common patterns are covered.</p>
+<h4 id="receiving-a-request-and-sending-a-response">Receiving a request and sending a response</h4>
+<pre><code class="js">srf.options((req, res) =&gt; {
+  res.send(200);
+});
+</code></pre>
+
+<h4 id="sending-a-response-with-headers">Sending a response with headers</h4>
+<pre><code class="js">srf.options((req, res) =&gt; {
+  res.send(200, {
+    headers: {
+      'Subject': 'All\'s well here'
+    }
+  });
+});
+</code></pre>
+
+<h4 id="sending-a-response-with-callback-to-get-the-msg-actually-sent">Sending a response with callback to get the msg actually sent</h4>
+<pre><code class="js">srf.options((req, res) =&gt; {
+  res.send(200, {
+    headers: {
+      'Subject': 'All\'s well here'
+    }
+  }, (err, msg) =&gt; {
+    const to = msg.getParsedHeader('To');
+    console.log(`drachtio server added tag on To header: ${to.params.tag}`);
+  });
+});
+</code></pre>
+
+<h4 id="sending-a-request-and-then-receiving-the-response">Sending a request, and then receiving the response</h4>
+<pre><code class="js">srf.request('sip:1234@example.com', {
+  method: 'OPTIONS'
+}, (err, req) =&gt; {
+  // req is the SIP request that went out over the wire
+  req.on('response', (res) =&gt; {
+    console.log(`received ${res.status} response to our OPTIONS request`);
+  });
+});
+</code></pre>
+
+<h4 id="sending-a-request-with-headers-and-body">Sending a request with headers and body</h4>
+<pre><code class="js">const dtmf = 
+`Signal=5
+Duration=160`;
+
+srf.request('sip:1234@example.com', {
+  method: 'INFO', 
+  headers: {
+    'Content-Type': 'application/dtmf-relay'
+  },
+  body: dtmf
+});
+</code></pre>
+
+<h4 id="handling-the-cancel-of-an-invite">Handling the cancel of an INVITE</h4>
+<pre><code class="js">srf.invite((req, res) =&gt; {
+  let canceled = false;
+
+  req.on('cancel', () =&gt; canceled = true);
+
+  doLengthyDatabaseLookup()
+    .then((results) =&gt; {
+
+      // was the call canceled while 
+      // we were doing database lookup?
+
+      if (canceled) return;
+
+      ..go on to process the call
+  })
+})
+</code></pre></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

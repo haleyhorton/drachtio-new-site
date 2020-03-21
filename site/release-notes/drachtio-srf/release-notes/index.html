@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>drachtio-srf - My Docs</title>
+        <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../../..">My Docs</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../../..">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">developer guide <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../../developer-guide/introduction/">introduction</a>
+</li>
+                                    
+<li >
+    <a href="../../../developer-guide/middleware/">middleware</a>
+</li>
+                                    
+<li >
+    <a href="../../../developer-guide/sip-messages/">sip messages</a>
+</li>
+                                    
+<li >
+    <a href="../../../developer-guide/sip-dialogs/">sip dialogs</a>
+</li>
+                                    
+<li >
+    <a href="../../../developer-guide/sip-proxy/">sip proxy</a>
+</li>
+                                    
+<li >
+    <a href="../../../developer-guide/call-detail-records/">call detail records</a>
+</li>
+                                    
+<li >
+    <a href="../../../developer-guide/advanced-topics/">advanced topics</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">drachtio server <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../../drachtio-server/installing/">installing</a>
+</li>
+                                    
+<li >
+    <a href="../../../drachtio-server/running/">running</a>
+</li>
+                                    
+<li >
+    <a href="../../../drachtio-server/configuring/">configuring</a>
+</li>
+                                    
+<li >
+    <a href="../../../drachtio-server/messaging-protocol/">messaging protocol</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">release notes <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li class="active">
+    <a href="./">drachtio-srf</a>
+</li>
+                                    
+<li >
+    <a href="../../drachtio-server/release-notes/">drachtio-server</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../../../drachtio-server/messaging-protocol/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../../drachtio-server/release-notes/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#4427">4.4.27</a></li>
+        <li class="main "><a href="#4426">4.4.26</a></li>
+        <li class="main "><a href="#4425">4.4.25</a></li>
+        <li class="main "><a href="#4424">4.4.24</a></li>
+        <li class="main "><a href="#4423">4.4.23</a></li>
+        <li class="main "><a href="#4422">4.4.22</a></li>
+        <li class="main "><a href="#4421">4.4.21</a></li>
+        <li class="main "><a href="#4420">4.4.20</a></li>
+        <li class="main "><a href="#4419">4.4.19</a></li>
+        <li class="main "><a href="#4418">4.4.18</a></li>
+        <li class="main "><a href="#4415">4.4.15</a></li>
+        <li class="main "><a href="#4414">4.4.14</a></li>
+        <li class="main "><a href="#4413">4.4.13</a></li>
+        <li class="main "><a href="#4412">4.4.12</a></li>
+        <li class="main "><a href="#4411">4.4.11</a></li>
+        <li class="main "><a href="#4410">4.4.10</a></li>
+        <li class="main "><a href="#449">4.4.9</a></li>
+        <li class="main "><a href="#448">4.4.8</a></li>
+        <li class="main "><a href="#447">4.4.7</a></li>
+        <li class="main "><a href="#446">4.4.6</a></li>
+        <li class="main "><a href="#445">4.4.5</a></li>
+        <li class="main "><a href="#444">4.4.4</a></li>
+        <li class="main "><a href="#443">4.4.3</a></li>
+        <li class="main "><a href="#442">4.4.2</a></li>
+        <li class="main "><a href="#441">4.4.1</a></li>
+        <li class="main "><a href="#440">4.4.0</a></li>
+        <li class="main "><a href="#437">4.3.7</a></li>
+        <li class="main "><a href="#436">4.3.6</a></li>
+        <li class="main "><a href="#435">4.3.5</a></li>
+        <li class="main "><a href="#434">4.3.4</a></li>
+        <li class="main "><a href="#433">4.3.3</a></li>
+        <li class="main "><a href="#432">4.3.2</a></li>
+        <li class="main "><a href="#431">4.3.1</a></li>
+        <li class="main "><a href="#430">4.3.0</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h2 id="4427">4.4.27</h2>
+<ul>
+<li>bugfix: copyAllHeaders needs to handle case where INVITE could not be sent</li>
+</ul>
+<h2 id="4426">4.4.26</h2>
+<ul>
+<li>proxyRequestHeaders and proxyResponseHeaders now can take keyword 'all' to copy SIP headers from A to B leg without specifying them individually.  Can also then selectively remove some; e.g. <code>proxyRequestHeaders: ['all', '-Authorization']</code>.  Note that headers such as To, From, Via, Contact, Route, Record-Route are never copied.</li>
+</ul>
+<h2 id="4425">4.4.25</h2>
+<h2 id="4424">4.4.24</h2>
+<ul>
+<li>when calling fnAck provided in Response#send callback, pass the ACK/PRACK message as a parameter (partial fix for <a href="https://github.com/davehorton/drachtio-srf/issues/70">#70</a>)</li>
+</ul>
+<h2 id="4423">4.4.23</h2>
+<ul>
+<li>UAC: when sending request with credentials after challenge, make sure two From headers are not included (drachtio server issue 106)</li>
+<li>allow auth on in-dialog requests <a href="https://github.com/davehorton/drachtio-srf/issues/67">#67</a></li>
+</ul>
+<h2 id="4422">4.4.22</h2>
+<ul>
+<li>Merge pull request #63 from Telzio/bugfix-isNewDialog</li>
+<li>for new incoming requests outside of a dialog, req.receiveOn contains the local sip endpoint that received the incoming request <a href="https://github.com/davehorton/drachtio-srf/issues/65">65</a></li>
+</ul>
+<h2 id="4421">4.4.21</h2>
+<h2 id="4420">4.4.20</h2>
+<ul>
+<li>race condition fix: b2bua, must wait for ACK from A before releasing queue of pending requests from B <a href="https://github.com/davehorton/drachtio-srf/issues/">#62</a></li>
+</ul>
+<h2 id="4419">4.4.19</h2>
+<ul>
+<li>Fixed bug where request.js calls non-existent method</li>
+<li>Merge pull request #61 from Telzio/feature-hold-unhold-events</li>
+<li>Only apply refresh/hold/unhold logic if these events are subscribed</li>
+</ul>
+<h2 id="4418">4.4.18</h2>
+<ul>
+<li><a href="https://github.com/davehorton/drachtio-srf/issues/55">#55</a> allow customization of From header; also remove unused api logging feature</li>
+</ul>
+<h2 id="4415">4.4.15</h2>
+<ul>
+<li>bugfix: when b2b fails to send to B due to stack error or warning, no response was propgated to A</li>
+</ul>
+<h2 id="4414">4.4.14</h2>
+<ul>
+<li>
+<p><a href="https://github.com/davehorton/drachtio-srf/issues/51">#15</a> - added attributes to <code>req</code> attribute that describe the drachtio server the request is coming from:</p>
+</li>
+<li>
+<p><code>req.server.address</code>: the IP address the drachtio server sending the request.  Note: this is the IP address the server is bound to for the tcp/tls socket connection to the application, which may be different than the IP address(es) that the server is listening on for SIP traffic.</p>
+</li>
+<li><code>req.server.hostport</code>: a list of SIP addresses and associated protocols that the drachtio server is listening on.  This is the same information that is returned in the callback to the <a href="https://drachtio.org/api#srf-event-connect">Srf#connect</a> event</li>
+</ul>
+<h2 id="4413">4.4.13</h2>
+<ul>
+<li><a href="https://github.com/davehorton/drachtio-srf/issues/48">#48</a> fix memory leak in outbound scenario</li>
+</ul>
+<h2 id="4412">4.4.12</h2>
+<ul>
+<li><a href="https://github.com/davehorton/drachtio-srf/issues/47">#47</a> when using outbound connections CANCEL was sometimes sent to wrong server in B2B scenario</li>
+</ul>
+<h2 id="4411">4.4.11</h2>
+<ul>
+<li>Dialog#modify now resolves to remote SDP received from reinvite</li>
+</ul>
+<h2 id="4410">4.4.10</h2>
+<ul>
+<li>allow app to set explicitly tag on To header when responding</li>
+<li>bugfix: Honour original uri transport in challenge response fixes - <a href="https://github.com/davehorton/drachtio-srf/issues/45">issue 45</a></li>
+</ul>
+<h2 id="449">4.4.9</h2>
+<ul>
+<li>bugfix: race condition with immediate request within newly-formed dialog - <a href="https://github.com/davehorton/drachtio-srf/issues/43">issue 43</a></li>
+</ul>
+<h2 id="448">4.4.8</h2>
+<ul>
+<li>Added support for sending periodic 'ping' requests to the server.  These are mainly useful to keep connections alive and active if they traverse network firewalls that may terminate tcp connections periodically if traffic has not been exchanged between the endpoints.  This feature is disabled by default, but can be turned on by setting <code>opts.enablePing</code> when calling Srf#connect or Srf#listen, e.g.</li>
+</ul>
+<pre style="margin-left: 5em; color:#D91C5C">
+srf.connect({
+  host: '127.0.0.1',
+  port: 9022,
+  secret: 'cymru',
+  enablePing: true
+});
+</pre>
+
+<p>The default ping interval is 15 seconds.  You can change this by setting <code>opts.pingInterval</code> to a value of milliseconds (must be &gt;= 5000 and &lt;= 300000); for instance, to set the ping interval to 45 seconds:</p>
+<pre style="margin-left: 5em; color:#D91C5C">
+srf.connect({
+  host: '127.0.0.1',
+  port: 9022,
+  secret: 'cymru',
+  enablePing: true,
+  pingInterval: 45000
+});
+</pre>
+
+<p>The server responds with a 'pong' message (note that you do not need to do anything to handle this; it is not exposed to the application level).</p>
+<p>This feature requires a drachtio server version of v0.8.2 or above; however, it is safe to call it against earlier versions (there just won't be any ping messages sent).</p>
+<h2 id="447">4.4.7</h2>
+<ul>
+<li>add Srf#findDialogById and Srf#findDialogByCallIDAndFromTag, the latter is particularly useful in handling attended transfer scenarios per <a href="https://github.com/davehorton/drachtio-srf/issues/34">issue #34</a></li>
+<li>migrated by istanbul to nyc for code coverage</li>
+</ul>
+<h2 id="446">4.4.6</h2>
+<ul>
+<li>make metadata available with destroy and ack events</li>
+<li>bugfix: parse sip scheme properly (<a href="https://github.com/davehorton/drachtio-srf/pull/33">pull request #33</a>)</li>
+</ul>
+<h2 id="445">4.4.5</h2>
+<ul>
+<li>pass request request metadata in dialog events; e.g. so when handling a BYE metadata such as the stack time of the message is available.</li>
+</ul>
+<h2 id="444">4.4.4</h2>
+<ul>
+<li>bugfix: opts.localSdpA in Srf#createB2BUA should allow for a function returning a string, as documented.  (Other options are for opts.localSdpA simply to be a string, or a function returning a Promise that resolves to a string).</li>
+</ul>
+<h2 id="443">4.4.3</h2>
+<ul>
+<li>update to latest drachtio-sip with bugfix for parsing multipart content-type header (fixes bug identified when handling SIPREC invite from Oracle/Acme)</li>
+<li>update to latest drachtio-sip to remove security warning</li>
+</ul>
+<h2 id="442">4.4.2</h2>
+<ul>
+<li>add algorithm=MD when constructing Authorization header (this is optional per spec, but some require it)</li>
+</ul>
+<h2 id="441">4.4.1</h2>
+<ul>
+<li>When handling a Digest challenge as a UAC after sending the initial request to a DNS name, send the follow-up credentialled request to the responding server ip address, rather than doing another DNS lookup.</li>
+<li>Export Request and SipMessage classes (mainly needed to construct test scenarios).</li>
+</ul>
+<h2 id="440">4.4.0</h2>
+<ul>
+<li>Added optional support for TLS encryption of messages between the drachtio server and drachtio-srf applications.  Requires drachtio-server@0.8.0-rc1 or above.</li>
+</ul>
+<h2 id="437">4.3.7</h2>
+<ul>
+<li>Fixed bug parsing messages from drachtio server that was causing intermittent "invalid message from server, did not start with.." errors</li>
+<li>when receiving a CANCEL that we cant relate to a pending INVITE, silently discard instead of returning 404</li>
+</ul>
+<h2 id="436">4.3.6</h2>
+<ul>
+<li>Fixed race condition when app CANCELs a uac INVITE in the midst of handling a 401/407 challenge response.</li>
+</ul>
+<h2 id="435">4.3.5</h2>
+<ul>
+<li>Fixed bug in Dialog#handle where an incoming NOTIFY request with a Subscription-State header was assumed to be for a SUBCRIBE dialog - this is not the case for a NOTIFY after a REFER.</li>
+<li>Fix bug in Digest authentication: nc and algorithm values should not be in quotes in Authorization (or Proxy-Authorization) header.</li>
+</ul>
+<h2 id="434">4.3.4</h2>
+<ul>
+<li>Added <code>opts.responseHeaders</code> to <a href="/api#srf-create-b2bua">Srf#createB2BUA</a> to provide SIP headers to include on responses to the A party.  The value may be either an object containing the SIP headers to apply on all responses to the A party (provisional as well as final), or a function returning an object that contains the SIP headers to apply.  If a function is provided, it will be called with the signature <code>(uacRes, headers)</code>, where <code>uacRes</code> is the response received from the B party, and <code>headers</code> are the SIP headers that have already been set on the response message to the A party (e.g., through the <code>opts.proxyResponse</code> option).</li>
+</ul>
+<h2 id="433">4.3.3</h2>
+<ul>
+<li>Fixed uac scenario (<code>srf.createUAC</code> or <code>srf.createB2BUA</code>) where <code>opts.auth</code> is provided and 401/407 challenge is handled.  The stack transaction for the initial request was being incorrectly used to send the CANCEL or ACK for the subsequent request (the one carrying credentials).</li>
+</ul>
+<h2 id="432">4.3.2</h2>
+<ul>
+<li>Fixed regression bug in recent change to <a href="/api#srf-request">Srf#request</a>.</li>
+</ul>
+<h2 id="431">4.3.1</h2>
+<ul>
+<li>Fix bug in <a href="/api#dialog-request">Dialog#request</a> where Promise was not being resolved properly with the received response to the outbound request.</li>
+<li><a href="/api#srf-proxy-request">Srf#proxyRequest</a> and <a href="/api#srf-request">Srf#request</a> now return Promises when no callback provided, for consistency with other methods</li>
+</ul>
+<h2 id="430">4.3.0</h2>
+<ul>
+<li>Added support for tagged inbound connections.</li>
+<li>Bundled functionality that was originally in the drachtio module; package.json now only requires drachtio-srf (i.e. do not include drachtio as a dependency).</li>
+</ul></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+        </script>
+        <script src="../../../js/base.js" defer></script>
+        <script src="../../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

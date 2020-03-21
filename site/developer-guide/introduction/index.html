@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>introduction - My Docs</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">My Docs</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">developer guide <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li class="active">
+    <a href="./">introduction</a>
+</li>
+                                    
+<li >
+    <a href="../middleware/">middleware</a>
+</li>
+                                    
+<li >
+    <a href="../sip-messages/">sip messages</a>
+</li>
+                                    
+<li >
+    <a href="../sip-dialogs/">sip dialogs</a>
+</li>
+                                    
+<li >
+    <a href="../sip-proxy/">sip proxy</a>
+</li>
+                                    
+<li >
+    <a href="../call-detail-records/">call detail records</a>
+</li>
+                                    
+<li >
+    <a href="../advanced-topics/">advanced topics</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">drachtio server <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../drachtio-server/installing/">installing</a>
+</li>
+                                    
+<li >
+    <a href="../../drachtio-server/running/">running</a>
+</li>
+                                    
+<li >
+    <a href="../../drachtio-server/configuring/">configuring</a>
+</li>
+                                    
+<li >
+    <a href="../../drachtio-server/messaging-protocol/">messaging protocol</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">release notes <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../release-notes/drachtio-srf/release-notes/">drachtio-srf</a>
+</li>
+                                    
+<li >
+    <a href="../../release-notes/drachtio-server/release-notes/">drachtio-server</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../..">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../middleware/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#introduction">Introduction</a></li>
+            <li><a href="#getting-your-kit-up-and-running">Getting your kit up and running</a></li>
+            <li><a href="#lets-do-something-simple">Let's do something simple</a></li>
+            <li><a href="#what-did-we-just-do">What did we just do?</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="introduction">Introduction</h1>
+<h2 id="getting-your-kit-up-and-running">Getting your kit up and running</h2>
+<p><a href="https://www.npmjs.com/package/drachtio-srf">drachtio-srf</a> (the 'srf' stands for <em>S</em>ignaling <em>R</em>esource <em>F</em>ramework) is the npm module that you will add to your package.json to build SIP server applications using drachtio.</p>
+<p>drachtio-srf works in concert with a <a href="https://github.com/davehorton/drachtio-server/tree/develop">drachtio server</a> process to control and manage SIP calls and events.  So you will need a running instance of a drachtio server somewhere to connect to in order to start developing.  </p>
+<p>You can find instructions for <a href="https://github.com/davehorton/drachtio-server/tree/develop">building a drachtio server from scratch here</a>, or if you prefer ansible you can find <a href="https://github.com/davehorton/ansible-role-drachtio">an ansible role here</a>, but the easiest way to get started is probably to run a <a href="https://cloud.docker.com/swarm/drachtio/repository/docker/drachtio/drachtio-server/general">docker image</a>.</p>
+<p>Review the <a href="/docs/drachtio-server">drachtio server docs</a> for detailed information on configuring the server.</p>
+<p><em>Notes:</em> The sample code below assumes that a drachtio server process is running on the localhost and is listening for connections from applications on port 9021 (tcp).</p>
+<h2 id="lets-do-something-simple">Let's do something simple</h2>
+<p>Let's write a simple app that receives an INVITE and responds with a 486 status with a custom reason.  </p>
+<p>First, create a new application and add drachtio-srf as a dependency:</p>
+<pre><code class="bash">$ mkdir reject-nice &amp;&amp; cd $_
+$ npm init
+...follow prompts, enter 'app.js' for entry point
+
+$ touch app.js
+$ npm install --save drachtio-srf
+</code></pre>
+
+<p>Next, make your app.js to look like this:</p>
+<pre><code class="js">const Srf = require('drachtio-srf');
+const srf = new Srf();
+
+srf.connect({
+  host: '127.0.0.1',
+  port: 9021,
+  secret: 'cymru'
+});
+
+srf.on('connect', (err, hostport) =&gt; {
+  console.log(`connected to a drachtio server listening on: ${hostport}`);
+});
+
+srf.invite((req, res) =&gt; {
+  res.send(486, 'So sorry, busy right now', {
+    headers: {
+      'X-Custom-Header': 'because why not?'
+    }
+  });
+});
+</code></pre>
+
+<p>Now start your drachtio server or docker image -- in the example above the drachtio server is running locally and listening on the localhost address with default port and secret.  </p>
+<p>Once the drachtio server is running, start your app and verify it connects:</p>
+<pre><code class="bash">$ node app.js 
+connected to a drachtio server listening on: tcp/[::1]:5060,udp/[::1]:5060, \
+tcp/127.0.0.1:5060,udp/127.0.0.1:5060,tcp/192.168.200.135:5060,udp/192.168.200.135:5060
+</code></pre>
+
+<p>Now fire up a sip client of some kind (e.g. <a href="https://www.counterpath.com/bria/">Bria</a>, <a href="http://icanblink.com/">Blink</a>, or other), point it at the address your drachtio server is listening on, and place a call.</p>
+<p>If everything is communicating properly, the call will get rejected with the reason above and in the drachtio log you should see the SIP trace, including the generated response:</p>
+<pre><code class="bash">2018-05-05 13:31:02.879056 send 358 bytes to udp/[127.0.0.1]:57296 at 13:31:02.878925:
+SIP/2.0 486 So sorry, busy right now
+Via: SIP/2.0/UDP 127.0.0.1:57296;branch=z9hG4bK-524287-1---de4c69061049b867;rport=57296
+From: &lt;sip:dhorton@sip.drachtio.org&gt;;tag=5fac7d01
+To: &lt;sip:22@sip.drachtio.org&gt;;tag=KjH30DtKFKXcQ
+Call-ID: 89373MWI0ODM1YTc2MTc2NThlZDE0MTU1YmRmNDY5OTk0NzM
+CSeq: 1 INVITE
+Content-Length: 0
+X-Custom-Header: because why not?
+</code></pre>
+
+<h2 id="what-did-we-just-do">What did we just do?</h2>
+<p>OK, so rejecting an incoming call is not particularly exciting, but the main thing we just accomplished was to verify that we have a working drachtio server, and also we illustrated how to connect an application to a drachtio server.</p>
+<p>The type of connection made in our example above is called an <strong>inbound</strong> connection; that is, a TCP connection made from the nodejs application acting as a client to the drachtio server process acting as the server.  There is also the possibility of having the drachtio server make an <strong>outbound</strong> connection to a listening application, but that is a <a href="/docs/developer-guide/#outbound-connections">more advanced topic we will cover later</a>, along with the reasons on why you might want to do that.</p>
+<p>By default, the drachtio server process listens for inbound connections on tcp port 9021, but this can be configured to a different port in its configuration file.  Authentication is currently performed using a simple plaintext secret, which is also configured in the drachtio server configuration file.</p>
+<p>In the example above, we listened for the 'connect' event on the <code>srf</code> object.  However, it is a <strong>best practice</strong> to also listen for the <code>error</code> event, e.g.:</p>
+<pre><code class="js">srf
+  .on('connect', (err, hostport) =&gt; {
+    console.log(`connected to a drachtio server listening on: ${hostport}`);
+  })
+  .on('error', (err) =&gt; {
+    console.log(`Error connecting to drachtio server: ${err}`);
+  });
+
+</code></pre>
+
+<p>The reason for this is that if (and only if) your app has an error handler on the srf instance, the framework will automatically try to reconnect any time the connection is lost, which is generally what you want in production scenarios.</p>
+<blockquote>
+<p>Pro tip: always have an <a href="/docs/api#Srf+event_error">error</a> handler on your Srf instance when using inbound connections, so your application will automatically reconnect to the server if the tcp connection is dropped.</p>
+</blockquote>
+<h3 id="where-did-those-other-sip-headers-come-from">Where did those other SIP headers come from?</h3>
+<p>Notice that although our application only provided one SIP header (a custom 'X-' header), the response actually sent by the drachtio server was a normal, fully-formed SIP response.  </p>
+<p>This is because the drachtio server process does a lot of the heavy lifting for us when it comes to managing the low-level SIP messaging. Our applications generally do not need to specify values for the common SIP headers, unless for some reason we want to override the behavior of the drachtio server.</p>
+<p>By the way, the custom header was, of course, not really necessary and was only done for illustrative purposes in the example above. Neither, for that matter, was the SIP reason we provided: we could have simply sent a standard <code>SIP/2.0 486 Busy Here</code> with the following line of code:</p>
+<pre><code class="js">res.send(486);
+</code></pre>
+
+<p>And, by the way, we are not limited to adding custom SIP headers to our messages -- we can add standard SIP headers in the same way:</p>
+<pre><code class="js">res.send(486, {
+  headers, {
+    'Subject' : 'my first app'
+  }
+});
+</code></pre></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

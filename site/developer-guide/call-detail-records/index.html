@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>call detail records - My Docs</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">My Docs</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">developer guide <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../introduction/">introduction</a>
+</li>
+                                    
+<li >
+    <a href="../middleware/">middleware</a>
+</li>
+                                    
+<li >
+    <a href="../sip-messages/">sip messages</a>
+</li>
+                                    
+<li >
+    <a href="../sip-dialogs/">sip dialogs</a>
+</li>
+                                    
+<li >
+    <a href="../sip-proxy/">sip proxy</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">call detail records</a>
+</li>
+                                    
+<li >
+    <a href="../advanced-topics/">advanced topics</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">drachtio server <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../drachtio-server/installing/">installing</a>
+</li>
+                                    
+<li >
+    <a href="../../drachtio-server/running/">running</a>
+</li>
+                                    
+<li >
+    <a href="../../drachtio-server/configuring/">configuring</a>
+</li>
+                                    
+<li >
+    <a href="../../drachtio-server/messaging-protocol/">messaging protocol</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">release notes <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../release-notes/drachtio-srf/release-notes/">drachtio-srf</a>
+</li>
+                                    
+<li >
+    <a href="../../release-notes/drachtio-server/release-notes/">drachtio-server</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../sip-proxy/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../advanced-topics/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#call-detail-records">Call Detail Records</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="call-detail-records">Call Detail Records</h1>
+<p>Generating call detail records (CDRs) is a standard requirement for SIP servers.  The drachio-server process generates the following types of CDRs:
+* a <strong>call attempt record</strong> is generated when a call attempt (i.e., INVITE) is either received or generated by the server
+* a <strong>call start record</strong> is generated when a call is connected (i.e., 200 OK either sent or received), and
+* a <strong>call stop record</strong> is generated when a call ends or a non-successful INVITE transaction completes.</p>
+<p>It follows from the above that a successful completed call will generate three CDRs (call attempt, call start, call stop), while a failed INVITE will only generate two CDRs (call attempt, call end).</p>
+<p>An application registers to receive CDRs by registering for events as illustrated below.</p>
+<pre><code class="js">const Srf = require('drachtio-srf');
+const srf = new Srf();
+const config = require('config');
+
+srf.connect(config.get('drachtio'))
+  .on('error', (err) =&gt; console.error(`Error connecting: ${err}`));
+
+
+// register to receive CDRs
+srf.on('cdr:attempt', (source, time, msg) =&gt; {
+  console.log(`got attempt record from ${source} at ${time}: msg.get('Call-Id')`) ;
+
+  // got attempt record from network at 20:05:58.130582: 671261870@42.55.72.99
+
+});
+
+srf.on('cdr:start', (source, time, role, msg) =&gt; {
+  console.log(`got start record from ${source} at ${time} with role ${role}: msg.get('Call-Id')`) ;
+
+  // got start record from network at 20:05:59.781505 with role uas: 671261870@42.55.72.99
+});
+
+srf.on('cdr:stop', (source, time, reason, msg) =&gt; {
+  console.log(`got stop record from ${source} at ${time} with reason ${reason}: msg.get('Call-Id')`) ;
+
+  // got stop record from network at 20:06:22.695850 with reason normal-release: 671261870@42.55.72.99
+});
+</code></pre>
+
+<blockquote>
+<p>Note that it is completely possible to have one specialized application connecting and receiving CDRs, while other applications are performing the call control logic.  This ability to separate CDR generation from application logic is often desirable in larger, more complex systems.</p>
+</blockquote>
+<p>The cdr events provide the following information elements:
+* <code>source</code>: either 'network' or 'application', depending on whether the INVITE was received by or sent from the drachtio server, respectively.
+* <code>time</code>: the UTC time that the request was sent or received
+* <code>role</code>: the role that the drachtio server is playing with regards to this INVITE request: 
+  + 'uas': the server is receiving the INVITE as a UAS
+  + 'uac': the server is generating the INVITE as a UAC
+  + 'proxy-uac': the server is forwarding an INVITE as a proxy
+  + 'proxy-uas': the server is receiving an INVITE as a proxy
+* <code>reason</code>: the termination reason for the call
+  + 'call-rejected': the INVITE was rejected with a non-success final status
+  + 'call-canceled': the INVITE was canceled by the sender before answer
+  + 'normal-release': the call was connected and later released normally by one side or the other
+  + 'session-expired': the call was connected and later torn down by the drachtio server because the session expired
+* <code>msg</code>:
+  + for 'cdr:attempt', the INVITE request
+  + for 'cdr:start', the 200 OK
+  + for 'cdr:stop', the final non-success response (if reason is 'call-rejected'), otherwise the BYE request taht was sent or received to terminate the Dialog.</p>
+<p>Further information about the call, such as calling and called party numbers, can be retrieved from the <code>msg</code> parameter using the <a href="#sip-messages">properties and methods of the SIP Message object</a>.</p>
+<blockquote>
+<p>Note: an application that wishes to receive CDR events must establish an inbound connection to the drachtio server, since CDR events are not currently sent over outbound connections.</p>
+</blockquote></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

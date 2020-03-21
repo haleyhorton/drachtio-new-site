@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>advanced topics - My Docs</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">My Docs</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">developer guide <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../introduction/">introduction</a>
+</li>
+                                    
+<li >
+    <a href="../middleware/">middleware</a>
+</li>
+                                    
+<li >
+    <a href="../sip-messages/">sip messages</a>
+</li>
+                                    
+<li >
+    <a href="../sip-dialogs/">sip dialogs</a>
+</li>
+                                    
+<li >
+    <a href="../sip-proxy/">sip proxy</a>
+</li>
+                                    
+<li >
+    <a href="../call-detail-records/">call detail records</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">advanced topics</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">drachtio server <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../drachtio-server/installing/">installing</a>
+</li>
+                                    
+<li >
+    <a href="../../drachtio-server/running/">running</a>
+</li>
+                                    
+<li >
+    <a href="../../drachtio-server/configuring/">configuring</a>
+</li>
+                                    
+<li >
+    <a href="../../drachtio-server/messaging-protocol/">messaging protocol</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">release notes <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../release-notes/drachtio-srf/release-notes/">drachtio-srf</a>
+</li>
+                                    
+<li >
+    <a href="../../release-notes/drachtio-server/release-notes/">drachtio-server</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../call-detail-records/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../../drachtio-server/installing/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#advanced-topics">Advanced Topics</a></li>
+            <li><a href="#outbound-connections">Outbound connections</a></li>
+            <li><a href="#using-tls-to-encrypt-messages-between-application-and-server">Using TLS to encrypt messages between application and server</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="advanced-topics">Advanced Topics</h1>
+<h2 id="outbound-connections">Outbound connections</h2>
+<p>The examples so far have illustrated <strong>inbound connections</strong>; that is, a drachtio application establishing a tcp connection to a drachtio server.  These are created by calling <a href="/docs/api#Srf+connect">Srf#connect</a>:</p>
+<pre><code class="js">const Srf = require('drachtio-srf');
+const srf = new Srf();
+
+// example of creating inbound connections
+srf.connect({
+  host: '192.168.1.100',
+  port: 9022, 
+  secret: 'cymru'
+});
+
+srf.on('connect', (hp) =&gt; console.log(`connected to drachtio listening on ${hp}`));
+srf.on('error', (err) =&gt; console.log(`error connecting: ${err}`));
+
+srf.invite((req, res) =&gt; {..});
+</code></pre>
+
+<p>An inbound connection is intended to be a <strong>long lasting</strong> connection: the application connects when the application starts, and that connection is then used to transmit all SIP events and commands as long as the application is running.  </p>
+<blockquote>
+<p>Note: If the connection between the drachtio client and the server is interrupted, it will be automatically reestablished as long as the application has installed a listener for the 'error' event on the Srf instance.</p>
+</blockquote>
+<p>Inbound connections are generally most useful in scenarios when a drachtio server is single-purposed, meaning all SIP requests are handled by a single application.  For example, if a drachtio server is specifically purposed to be a SIP proxy, and all incoming calls are treated by the same application logic, then an inbound connection between the drachtio application and server would probably be preferred.</p>
+<p>However, it is also possible for the connections between the drachtio application and the server to be reversed: that is, the drachtio server establishes the connection to a drachtio server on a per-call (more specifically, a per SIP request) basis.  This is called an <strong>outbound connection</strong>, and it requires two things:
+1. The drachtio server configuration file must include a <a href="/docs/drachtio-server#request-handlers-section">request-handler</a> xml section that maps a specific SIP method type to an HTTP web callback, and
+2. The drachtio application must call the <a href="/docs/api#Srf+listen">Srf#listen</a> method, which causes it to listen for connections from a drachtio server rather than initiate them.</p>
+<p>The sequence of events when outbound connections have been enabled are as follows:
+1. The drachtio application starts, and begins listening on a specific IP address and port for connections from drachtio servers.
+2. An incoming INVITE request (for example) is received by a drachtio server.
+3. Because the drachtio server has been configured with a web callback for INVITE request types, an HTTP GET request is made to the web callback.  Information about the incoming call is passed to the web callback via url parameters in the request.
+4. The web callback -- which is a user-supplied web app -- returns a JSON body indicating the ip address or dns name and tcp port where the drachtio application is listening.
+5. The drachtio server retrieves the ip address and port from the response to the web callback and establishes a tcp connection to the drachtio application listening on that address:port.
+6. The INVITE information is sent to the drachtio application over this new connection, and the standard drachtio middleware is invoked; e.g. <code>srf.invite((req, res))</code>.</p>
+<pre><code class="js">const Srf = require('drachtio-srf');
+const srf = new Srf();
+
+// example of listening for outbound connections
+srf.listen({
+  port: 3001, 
+  secret: 'cymru'
+});
+
+srf.invite((req, res) =&gt; {..});
+</code></pre>
+
+<p>From the standpoint of the drachtio application you would write, the code is almost exactly the same other than the call to <a href="/docs/api#Srf+listen">Srf#listen</a> instead of <a href="/docs/api#Srf+connect">Srf#connect</a> and one other matter related to eventually releasing the connection, which we will describe shortly.</p>
+<h3 id="mixing-inbound-and-outbound-connections">Mixing inbound and outbound connections</h3>
+<p>Is it possible to mix inbound and outbound connections?  </p>
+<p>Sort of.  Here are the limitations:</p>
+<ol>
+<li>A drachtio server can have both inbound and outbound connections, but a given SIP method type (e.g. INVITE) will exclusively use one or the other.  Specifically, if there is a <code>&lt;request-handler&gt;</code> element with a <code>sip-method</code> property set to either the method name or <code>*</code>, then outbound connections will be used for all incoming SIP requests of that method type; otherwise inbound connections will be used.</li>
+<li>A single <code>Srf</code> instance must exclusively use only inbound or outbound connections; that is to say that it must call <em>either</em> <a href="/docs/api#Srf+connect">Srf#connect</a> <em>or</em> <a href="/docs/api#Srf+listen">Srf#listen</a> but not both.  A single application that wants to use both must create two (or more) Srf instances, or alternatively the functionality can be split into multiple applications.</li>
+</ol>
+<h3 id="terminating-outbound-connections">Terminating outbound connections</h3>
+<p>We mentioned above that inbound connections are long-lasting.</p>
+<p>Outbound connections are not.  </p>
+<p>An outbound connection is established when a specific SIP request arrives, and it is intended to last only until the application has determined that all logic related to that request has been performed. From a practical standpoint, since each new arriving request spawns a new tcp connection, it is important that connections are destroyed when the application logic is complete, so that we don't exhaust file descriptor or other resources on the server.</p>
+<p>Because the determination of "when all application logic has complete" is, by definition, something that only the application can know, we require the application to destroy the connection via an explicit call to <a href="/docs/api#Srf+endSession">Srf#endSession</a> when it is no longer needed.  Typically, an application will call this method when all SIP dialogs or transactions associated with or emanating from the initial SIP request have been destroyed.  </p>
+<p>In a simple example of a UAS app connecting an incoming call, for instance, when the BYE that terminates the call is sent or received it would be appropriate to call <a href="/docs/api#Srf+endSession">Srf#endSession</a>.</p>
+<blockquote>
+<p>This method call is a 'no-op' (does nothing) when called on an inbound connection, so it is safe to call in code that may be dealing with an outbound or inbound connection.</p>
+</blockquote>
+<h3 id="when-to-use-outbound-connections">When to use outbound connections</h3>
+<p>There are two primary scenarios in which to use outbound connections:</p>
+<ol>
+<li>When a single drachtio server is going to handle calls controlled by multiple different types of applications.  In this scenario, it can be useful to have a web callback examine the incoming calls and distribute them appropriately to the different drachtio applications based on per-call information.  For example, if we wanted to stand up a drachtio server that multiple customers could utilize (i.e. multi-tenant situation) then outbound connections would allow us to have many different customer applications controlling calls on that server, each applying their own logic.</li>
+<li>When drachtio applications are going to run in a containerized cluster environment such as Kubernetes, outbound connections can be useful.  In this environment, it can be useful to create a Kubernetes Service for the drachtio cluster, and then use outbound connections to route incoming calls to the public address of the Kubernetes Service which is backed by a cluster of drachtio applications running in Kubernetes pods.  </li>
+</ol>
+<p>In general, outbound connections can make it easier to independently scale drachtio servers and groups of drachtio applications, since you do not need to explicitly "tie" drachtio applications to specific servers.</p>
+<p>For more information on configuring drachtio server for outbound connections refer to the <a href="/docs/drachtio-server#request-handlers-section">drachtio server configuration documentation</a>.</p>
+<h2 id="using-tls-to-encrypt-messages-between-application-and-server">Using TLS to encrypt messages between application and server</h2>
+<p>As of drachtio server release 0.8.0-rc1 and drachtio-srf release 4.4.0, it is possible to encrypt the messages between the drachtio server and your application.  This may be useful in situations where applications are running remotely and you prefer to encrypt the control messages as they pass through intervening networks.  Both inbound and outbound connections can use TLS encryption, though the configuration steps are different as described below.</p>
+<h3 id="securing-inbound-connections-using-tls">Securing inbound connections using TLS</h3>
+<p>To use TLS on inbound connections, simply configure the drachtio server to listen on a specific port for TLS traffic, in addition to (or in place of) TCP traffic.  For example:</p>
+<pre><code>&lt;admin port=&quot;9022&quot; tls-port=&quot;9023&quot; secret=&quot;cymru&quot;&gt;127.0.0.1&lt;/admin&gt;
+</code></pre>
+
+<p>would cause the server to listen for tcp connections on port 9022 and tls connections on port 9023.</p>
+<p>You can also specify the port on the command line:</p>
+<pre><code>drachtio --tls-port 9023
+</code></pre>
+
+<p>In addition to specifying a port to listen for tls traffic, you must specify minimally a server key, a certificate, and a dhparam file.  These are specified in the 'tls' section of the config file:</p>
+<pre><code>&lt;tls&gt;
+    &lt;key-file&gt;/etc/letsencrypt/live/example.org/privkey.pem&lt;/key-file&gt;
+    &lt;cert-file&gt;/etc/letsencrypt/live/example.org/cert.pem&lt;/cert-file&gt;
+    &lt;chain-file&gt;/etc/letsencrypt/live/example.org/chain.pem&lt;/chain-file&gt;
+    &lt;dh-param&gt;/var/local/private/dh4096.pem&lt;/dh-param&gt;
+&lt;/tls&gt;
+</code></pre>
+
+<p>Of course, these can also be specified via the command line as well:</p>
+<pre><code>drachtio --dh-param /var/local/private/dh4096.pem \
+  --cert-file /etc/letsencrypt/live/example.org/cert.pem \
+  --chain-file /etc/letsencrypt/live/example.org/chain.pem \
+  --key-file /etc/letsencrypt/live/example.org/privkey.pem
+</code></pre>
+
+<h4 id="drachtio-srf-app-configuration">drachtio-srf app configuration</h4>
+<p>On the client side, when connecting to a TLS port the <a href="/api#srf-connect">Srf#connect</a> function call must include a 'tls' object parameter in the options passed:</p>
+<pre><code>    this.srf.connect({
+      host: '127.0.0.1',
+      port: 9023, 
+      tls: {
+        rejectUnauthorized: false
+      }
+    });
+</code></pre>
+
+<p>Any of the node.js tls options that can be passed to <a href="https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options">tls.createSecureContext</a> can be passed. Even if you do not need to include any options, you must still include an empty object as the <code>opts.tls</code> param in order to signal the underlying library that you wish to establish a TLS connection.</p>
+<h4 id="using-self-signed-certificate-on-the-server">Using self-signed certificate on the server</h4>
+<p>If you are using a self-signed certificate on the server, then you must load that same certificate on the client, as below:</p>
+<pre><code>    this.srf.connect({
+      host: '127.0.0.1',
+      port: 9023, 
+      tls: {
+        ca: fs.readFileSync('server.crt'),
+        rejectUnauthorized: false
+      }
+    });
+</code></pre>
+
+<h3 id="securing-outbound-connections-using-tls">Securing outbound connections using TLS</h3>
+<p>To use TLS to secure outbound connections, there is no specific configuration needed on the server.  You just need your http request handler to return a uri with a <code>transport=tls</code> parameter, e.g.:</p>
+<pre><code>{&quot;uri&quot;: &quot;10.32.100.2:808;transport=tls&quot;}
+</code></pre>
+
+<h4 id="drachtio-srf-configuration">drachtio-srf configuration</h4>
+<p>On the application side, to listen for TLS connections you will need to modify the <a href="/api#srf-listen">Srf#listen</a> function to pass tls options.  Minimally, you must specify a private key and certificate.</p>
+<pre><code>  srf.listen({
+    port: 8080,
+    tls: {
+      key: fs.readFileSync('server.key'),
+      cert: fs.readFileSync('server.crt'),
+      rejectUnauthorized: false      
+    }
+  });
+</code></pre></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

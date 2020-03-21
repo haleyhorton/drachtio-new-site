@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>configuring - My Docs</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">My Docs</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">developer guide <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../developer-guide/introduction/">introduction</a>
+</li>
+                                    
+<li >
+    <a href="../../developer-guide/middleware/">middleware</a>
+</li>
+                                    
+<li >
+    <a href="../../developer-guide/sip-messages/">sip messages</a>
+</li>
+                                    
+<li >
+    <a href="../../developer-guide/sip-dialogs/">sip dialogs</a>
+</li>
+                                    
+<li >
+    <a href="../../developer-guide/sip-proxy/">sip proxy</a>
+</li>
+                                    
+<li >
+    <a href="../../developer-guide/call-detail-records/">call detail records</a>
+</li>
+                                    
+<li >
+    <a href="../../developer-guide/advanced-topics/">advanced topics</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">drachtio server <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../installing/">installing</a>
+</li>
+                                    
+<li >
+    <a href="../running/">running</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">configuring</a>
+</li>
+                                    
+<li >
+    <a href="../messaging-protocol/">messaging protocol</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">release notes <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../release-notes/drachtio-srf/release-notes/">drachtio-srf</a>
+</li>
+                                    
+<li >
+    <a href="../../release-notes/drachtio-server/release-notes/">drachtio-server</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../running/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../messaging-protocol/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#configuring">Configuring</a></li>
+            <li><a href="#drachtioconfxml">drachtio.conf.xml</a></li>
+            <li><a href="#command-line-arguments">command-line arguments</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="configuring">Configuring</h1>
+<p>The drachtio process can either be configured via command-line parameters, environment variables, a configuration file -- or a combination of all three.  The order of precedence of configuration settings is as follows:
+* command-line parameters, if provided, always take precedence
+* otherwise environment variables, if provided, take precedence
+* otherwise configuration file settings are used.</p>
+<p>By default, the server will look for a configuration file at <code>/etc/drachtio.conf.xml</code>.  This can be changed by passing the configuration file path as a command line argument <code>-f</code>; e.g., <code>drachtio -f /tmp/drachtio.conf.xml</code></p>
+<p>As the name suggests, the configuration file is in XML format.  The structure of the file is described below, and <a href="https://github.com/davehorton/drachtio-server/blob/develop/drachtio.conf.xml">a heavily commented version of the file can be found here</a> that provides additional detail to the summary provided below. </p>
+<h3 id="drachtioconfxml">drachtio.conf.xml</h3>
+<p>A drachtio configuration file has the following high-level structure:</p>
+<pre><code class="xml">&lt;drachtio&gt;
+  &lt;admin/&gt;
+  &lt;request-handlers/&gt;
+  &lt;sip/&gt;
+  &lt;cdrs/&gt;
+  &lt;monitoring/&gt;
+  &lt;logging/&gt;
+&lt;/drachtio&gt;
+</code></pre>
+
+<p>Each section is described below, along with the command line parameters and environemnt variables that can be used to configure the same settings.</p>
+<h4 id="admin-section">admin section</h4>
+<p>The <strong>admin</strong> section is required and specifies how the drachtio server will listen for incoming connections from drachtio applications. The information includes the tcp port to listen on, the address(es) to listen on (0.0.0.0 means all available interfaces), the shared secret that is used for authentication, and whether tcp keep alives will be sent on these connections.</p>
+<p>Note that as of release 0.8.0, there is also an option to use tls encryption on connections.  For inbound connections, this is specified by providing a 'tls-port' option.  The server can be configured to handle either, or both, tcp and tls connections.</p>
+<pre><code class="xml">&lt;admin port=&quot;9022&quot; tls-port=&quot;9023&quot; secret=&quot;cymru&quot; tcp-keepalive-interval=&quot;30&quot;&gt;0.0.0.0&lt;/admin&gt;
+</code></pre>
+
+<p>or, using command-line parameters:</p>
+<pre><code class="bash">drachtio --port 9022 --tls-port 9023 --secret cymru --tcp-keepalive-interval 30
+</code></pre>
+
+<p>or, using environment variables</p>
+<pre><code class="bash">DRACHTIO_ADMIN_TCP_PORT=9022 \
+DRACHTIO_ADMIN_TLS_PORT=9023 \
+DRACHTIO_TCP_KEEPALIVE_INTERVAL=30 \
+DRACHTIO_SECRET=cymru drachtio
+</code></pre>
+
+<p>Note that by default, tcp keepalives are enabled with an interval of 45 seconds.  The value can be changed, as above, or disabled by setting it to a value of zero.</p>
+<h4 id="request-handlers-section">request-handlers section</h4>
+<p>The <strong>request-handlers</strong> section is optional and configures the drachtio process to establish <a href="/docs#outbound-connections">outbound connections</a> to drachtio servers for some or all SIP methods instead of <strong>inbound connections</strong>.</p>
+<p>The <code>&lt;request-handlers&gt;</code> element can have zero or more child <code>&lt;request-handler&gt;</code> elements. Each <code>&lt;request-handlers&gt;</code> defines a specific SIP method (or <code>*</code> to wildcard all methods) and an http(s) web callback to invoke when a new request of the specified method type arrives.  It is the responsibility of the user-supplied web callback to return information in an HTTP 200 OK response indicating how to route the call.</p>
+<pre><code class="xml">&lt;request-handlers&gt;
+    &lt;request-handler sip-method=&quot;INVITE&quot; http-method=&quot;GET&quot; verify-peer=&quot;false&quot;&gt;https://38.187.89.96:8080&lt;/request-handler&gt;
+&lt;/request-handlers&gt;
+</code></pre>
+
+<p>With the configuration above in place, when the drachtio server receives a new incoming INVITE request, it will send an HTTP GET to the URL above, with HTTP query arguments
+* <code>method</code>: the SIP method of the request
+* <code>domain</code>: the SIP domain in the Request-URI
+* <code>protocol</code>: the transport protocol used (e.g. 'udp', 'tcp', 'wss', etc)
+* <code>source_address</code>: the IP address of the sender
+* <code>fromUser</code>: the user part of the uri in the From header
+* <code>toUser</code>: the user part of the uri in the To header
+* <code>uriUser</code>: the user part of the uri in the Request-URI
+* <code>contentType</code>: the Content-Type header in the request, if any
+* <code>uri</code>: the full Request-URI</p>
+<blockquote>
+<p>Note: either HTTP or HTTPS URIs are supported.  If using self-signed certificates with HTTPS, set <code>verify-peer</code> to false, as above.</p>
+<p>Note: setting <code>http-method="POST"</code> will cause an HTTP POST top be sent to the user-supplied web callback.  All of the information supplied below will be provided (e.g. query args) but additionally the body of the request will have a full copy of the incoming SIP request message.  This is useful in more complex routing scenarios which may, for instance, depend on examining specific values in the SIP headers of the incoming message.</p>
+</blockquote>
+<p>An example HTTP URL that gets sent out looks like this:</p>
+<pre><code> http://38.187.89.96:8080/?method=INVITE&amp;domain=server-01.drachtio.org&amp;protocol=udp&amp;source_address=10.132.0.29&amp;fromUser=%2b15083084809&amp;toUser=calltest&amp;uriUser=r-ee78299f-2f85-4d92-97ab-24f1d11e2b69&amp;contentType=application%2fsdp&amp;uri=sip%3ar-ee78299f-2f85-4d92-97ab-24f1d11e2b69%server-01.drachtio.org%3bdst%3d%2b15083084809%2540139.59.165.83%3a5060&amp;dst=%2b15083084809%2540139.59.165.83%3a5060
+ ```
+
+Based on the information above provided in the HTTP request, the user-supplied callback is responsible for indicating one of the following actions in a JSON body of the HTTP 200 OK response:
+* return a non-success response to the request
+* proxy the request
+* redirect the request (valid for INVITE only)
+* route the request to a specified drachtio application
+
+The first three actions completely disposition the incoming SIP request -- i.e. no further interaction with a drachtio application occurs.  
+
+The final action (route to an application) causes the drachtio server to establish an outbound tcp connection to a drachtio application listening on a specified port, which then receives and processes the request normally (e.g. in a `srf.invite((req, res)))` or equivalent).
+
+Note that as of release 0.8.0, it is possible route to a drachtio application over an outbound connection using tls.  This is specified by appending a `transport` attribute to the uri and specifying 'tls', e.g. `uri:myapp.example.com;transport=tls`.
+
+Example JSON responses for each of the above action are illustrated below (note: a response should include only one of the JSON payloads below):
+
+```js
+// this would reject the call with a &quot;503 Max Calls Exceeded&quot; response
+// note: reason is optional
+{
+  &quot;reject&quot;:
+  &quot;data&quot;: {
+      &quot;status&quot;: 503,
+      &quot;reason&quot;: &quot;Max Calls Exceeded&quot;
+  }
+}
+
+// this redirects the call to the address specified.
+// the Contact header of the response will be populated accordingly
+{
+  &quot;redirect&quot;:
+  &quot;data&quot;: {
+      &quot;contacts&quot;: [
+          &quot;sip:foo@bar.com&quot;
+      ]
+  }
+}
+
+// this proxies the call accordingly
+{
+  &quot;proxy&quot;:
+  &quot;data&quot;: {
+      &quot;destination&quot;: [
+          &quot;sip:foo@bar.com&quot;
+      ],
+      recordRoute: true
+  }
+}
+
+// this causes the request to be delivered to a drachtio app for further processing.
+// the drachtio app must be listening on the uri provided; i.e an outbound connection.
+{
+  &quot;route&quot;:
+  &quot;data&quot;: {
+      &quot;uri&quot;: &quot;call-recording.default.svc.cluster.local:4000&quot;
+  }
+}
+
+// this causes the request to be delivered to a drachtio app for further processing.
+// the drachtio app must be using tagged inbound connections.
+{
+  &quot;route&quot;:
+  &quot;data&quot;: {
+      &quot;tag&quot;: &quot;conferencing-app&quot;
+  }
+}
+</code></pre>
+
+<blockquote>
+<p>Note: the last stanza above applies to using tagged inbound connections.  For more details, <a href="https://drachtio.org/blog/introducing-tagged-inbound-connections/">see here</a></p>
+</blockquote>
+<p>A request handler for all incoming SIP requests can be configured via the command-line as well:</p>
+<pre><code class="bash">drachtio --http-handler &quot;http://38.187.89.96:8080&quot; --http-method &quot;GET&quot;
+</code></pre>
+
+<h4 id="sip-section">sip section</h4>
+<p>The <code>&lt;sip&gt;</code> section defines which addresses and ports the SIP stack will listen on, which protocols will be supported, where to find (if necessary) SSL certificates, and other SIP options.</p>
+<h5 id="contacts">contacts</h5>
+<p>The drachtio server can listen on multiple interfaces/addresses for SIP traffic. These are defined in a <code>&lt;contacts&gt;</code> element that has child <code>&lt;contact&gt;</code> elements for each SIP endpoint.  Examples of possible configuration are shown below.</p>
+<pre><code class="xml">&lt;!-- listen on all addresses, default port 5060 for udp and tcp protocols --&gt;
+&lt;sip&gt;
+  &lt;contacts&gt;
+    &lt;contact&gt;sip:*;transport=udp,tcp&lt;/contact&gt;
+  &lt;/contacts&gt;
+&lt;/sip&gt;
+</code></pre>
+
+<pre><code class="xml">&lt;!-- listen on ports 5060 and 5080 --&gt;
+&lt;contacts&gt;
+  &lt;contact&gt;sip:*;transport=udp,tcp&lt;/contact&gt;
+  &lt;contact&gt;sip:*:5080;transport=udp,tcp&lt;/contact&gt;
+&lt;/contacts&gt;
+</code></pre>
+
+<pre><code class="xml">&lt;!-- listen for secure websockets on specific address and port --&gt;
+&lt;contacts&gt;
+  &lt;contact&gt;sip:192.168.100.23:443;transport=wss&lt;/contact&gt;
+&lt;/contacts&gt;
+</code></pre>
+
+<p>Additionally, if the SIP server has been assigned an external address that should be used in the SIP signaling, this should be specified as follows:</p>
+<pre><code class="xml">&lt;contacts&gt;
+  &lt;contact external-ip=&quot;35.195.28.194&quot;&gt;sip:10.132.0.22;transport=udp,tcp&lt;/contact&gt;
+&lt;/contacts&gt;
+</code></pre>
+
+<p>This will cause the drachtio server to advertise its address as <code>35.195.28.194</code> in Contact and Via headers, even though its local assigned IP address is <code>10.132.0.22</code>.</p>
+<p>Furthermore, if the drachtio server has an assigned DNS name, this should be configured as well so that it can detect when the Request-URI of an incoming SIP request is referring to the local host when the DNS name appears in the host portion.</p>
+<pre><code class="xml">&lt;contacts&gt;
+  &lt;contact dns-names=&quot;server01.drachtio.org&quot; external-ip=&quot;35.195.28.194&quot;&gt;sip:10.132.0.22;transport=udp,tcp&lt;/contact&gt;
+&lt;/contacts&gt;
+</code></pre>
+
+<blockquote>
+<p>Note: multiple DNS names can be provided in comma-separated format.</p>
+</blockquote>
+<p>SIP contacts can be supplied via command line as follows</p>
+<pre><code>drachtio --contact &quot;sip:10.132.0.22;transport=udp&quot; --external-ip 35.195.28.194
+</code></pre>
+
+<h5 id="timers">timers</h5>
+<p>The <a href="https://tools.ietf.org/html/rfc3261#page-265">SIP spec contains definitions for timers</a> governing retransmissions of SIP requests and the like.  Generally, there is no need to modify the setting for these timers, but if desired this can be done as follows:</p>
+<pre><code class="xml">&lt;timers&gt;
+  &lt;t1&gt;500&lt;/t1&gt;
+  &lt;t2&gt;4000&lt;/t2&gt;
+  &lt;t4&gt;5000&lt;/t4&gt;
+  &lt;t1x64&gt;32000&lt;/t1x64&gt;
+&lt;/timers&gt;
+</code></pre>
+
+<blockquote>
+<p>Note: values are in milliseconds.  The example above actually sets the timers to their defined default values, so if you are using this section you would like be setting them to some other values.  You only need to specify those timers that you want to adjust from their default values.</p>
+</blockquote>
+<h5 id="tls">tls</h5>
+<p>If you are using either TLS or WSS as a transport, then you must specify where the associated tls certificates are stored on the server.</p>
+<p>Additionally, when using tls on admin connections from applications, you must specify a dhparam file that contains the Diffie-Hellman (dh) parameters.  (This is not required if you are only using TLS to secure SIP connections)</p>
+<pre><code class="xml">&lt;tls&gt;
+  &lt;key-file&gt;/etc/letsencrypt/live/yourdomain/privkey.pem&lt;/key-file&gt;
+  &lt;cert-file&gt;/etc/letsencrypt/live/yourdomain/cert.pem&lt;/cert-file&gt;
+  &lt;chain-file&gt;/etc/letsencrypt/live/yourdomain/chain.pem&lt;/chain-file&gt;
+  &lt;dh-param&gt;/var/local/private/dh4096.pem&lt;/dh-param&gt;
+&lt;/tls&gt;
+</code></pre>
+
+<p>or, via command-line</p>
+<pre><code>drachtio --key-file &lt;keyfile&gt; --cert-file &lt;certfile&gt; --chain-file &lt;chainfile&gt; --dh-param &lt;dhparamfile
+</code></pre>
+
+<h5 id="outbound-proxy">outbound-proxy</h5>
+<p>This causes all outbound requests to be sent through an outbound proxy</p>
+<pre><code class="xml">&lt;outbound-proxy&gt;sip:10.10.10.1&lt;/outbound-proxy&gt;
+</code></pre>
+
+<h5 id="spammers">spammers</h5>
+<p>The drachtio server can examine the Contact, To, and From headers for distinctive signatures that indicate the request was sent from a spam source.  If a spammer is detected, the message can either be rejected or silently discarded.</p>
+<pre><code class="xml">&lt;spammers action=&quot;reject&quot; action=&quot;discard&quot;&gt;
+  &lt;header name=&quot;User-Agent&quot;&gt;
+    &lt;value&gt;sip-cli&lt;/value&gt;
+    &lt;value&gt;sipcli&lt;/value&gt;
+    &lt;value&gt;friendly-scanner&lt;/value&gt;
+  &lt;/header&gt;
+  &lt;header name=&quot;To&quot;&gt;
+    &lt;value&gt;sipvicious&lt;/value&gt;
+  &lt;/header&gt;
+&lt;/spammers&gt;
+</code></pre>
+
+<h5 id="capture-server">capture-server</h5>
+<p>The drachtio server can be configured to send to <a href="http://www.sipcapture.org/">Homer</a> using the <a href="https://github.com/sipcapture/HEP">HEP</a> protocol.</p>
+<pre><code class="xml">&lt;capture-server port=&quot;9060&quot; hep-version=&quot;3&quot; id=&quot;101&quot;&gt;127.0.0.1&lt;/capture-server&gt;
+</code></pre>
+
+<p>or, via command line</p>
+<pre><code>drachtio --homer &quot;127.0.0.1:9060&quot; --homer-id 101
+</code></pre>
+
+<p>or, via environment variables:</p>
+<pre><code>DRACHTIO_HOMER_ADDRESS=127.0.0.1 \
+DRACHTIO_HOMER_PORT=9060 \
+DRACHTIO_HOMER_ID=101 drachtio
+</code></pre>
+
+<h5 id="udp-mtu">udp-mtu</h5>
+<p><em>Added in version 0.7.3-rc2</em></p>
+<p>sofia-sip has an annoying feature where it forces an outbound request to go out TCP if the packet size exceeds a specific threshold (usually 1300 bytes). Tis configuration setting allows users to increase this threshold to an arbitrary value.</p>
+<pre><code class="xml">&lt;udp-mtu&gt;4096&lt;/udp-mtu&gt;
+</code></pre>
+
+<p>or, via command line</p>
+<pre><code>drachtio --mtu 4096
+</code></pre>
+
+<p>or, via environment variables</p>
+<pre><code>DRACHTIO_UDP_MTU=4096 drachtio
+</code></pre>
+
+<h4 id="monitoring-section">monitoring section</h4>
+<p>drachtio supports <a href="https://prometheus.io">prometheus</a> monitoring by optionally exposing a /metrics endpoint.  <a href="https://github.com/davehorton/drachtio-server/blob/develop/docs/prometheus.md">See here</a> for a list of the metrics provided</p>
+<pre><code class="xml">&lt;monitoring&gt;
+  &lt;prometheus port=&quot;9090&quot;&gt;127.0.0.1&lt;/prometheus&gt;
+&lt;/monitoring&gt;
+</code></pre>
+
+<blockquote>
+<p>Note: if the address is not provided, the <code>/metrics</code> endpoints will be available on all interfaces (e.g. 0.0.0.0).</p>
+</blockquote>
+<p>or, via command line:</p>
+<pre><code>drachtio --prometheus-scrape-port &quot;9090&quot;
+# above implies 0.0.0.0:9090, we can be more explicit
+drachtio --prometheus-scrape-port &quot;10.0.1.5:9090&quot;
+</code></pre>
+
+<p>or, via environment variables</p>
+<pre><code>DRACHTIO_PROMETHEUS_SCRAPE_PORT=9090 drachtio
+# or
+DRACHTIO_PROMETHEUS_SCRAPE_PORT=10.0.1.5:9090 drachtio
+
+</code></pre>
+
+<h4 id="logging-section">logging section</h4>
+<p>The <code>&lt;logging&gt;</code> section defines where drachtio server will send logging information, including sip traces.</p>
+<p>Logging destinations include the console, a named log file on the server, or syslog.  Any or all of them may be used at one time.</p>
+<h5 id="console">console</h5>
+<p>To log output to the console simply include a <code>&lt;console\&gt;</code> child element.</p>
+<h5 id="syslog">syslog</h5>
+<p>To send log output to a syslog server via UDP, specify the following:</p>
+<pre><code class="xml">&lt;syslog&gt;
+  &lt;address&gt;127.0.0.1&lt;/address&gt;
+  &lt;port&gt;514&lt;/port&gt;
+  &lt;facility&gt;local6&lt;/facility&gt;
+&lt;/syslog&gt;
+</code></pre>
+
+<h5 id="log-file">log file</h5>
+<p>To send log output to a log file on the server, specify the following:</p>
+<pre><code class="xml"> &lt;file&gt;
+  &lt;name&gt;/var/log/drachtio/drachtio.log&lt;/name&gt;
+  &lt;archive&gt;/var/log/drachtio/archive&lt;/archive&gt;
+  &lt;size&gt;50&lt;/size&gt; 
+  &lt;maxSize&gt;100&lt;/maxSize&gt;
+  &lt;minSize&gt;2000&lt;/minSize&gt;
+  &lt;auto-flush&gt;true&lt;/auto-flush&gt;
+&lt;/file&gt;
+</code></pre>
+
+<p>The options are as follows:
+* <code>name</code>: path to the log file
+* <code>archive</code>: path a directory where older log files were be archived
+* <code>size</code>: the size (in MB) at which the log file is truncated
+* <code>maxSize</code>: the max size (in MB) of archived files to keep
+* <code>minSize</code>: the minimum freespace (in MB) on the filesytem to maintain when archiving
+* <code>auto-flush</code>: if true, log information is written immediately to disk; otherwise log file is buffered and written intermittently (slightly better performance)</p>
+<h5 id="loglevel">loglevel</h5>
+<p>The overall system log level: 'notice', 'warning', 'error', 'info, or 'debug'.</p>
+<pre><code class="xml">&lt;loglevel&gt;info&lt;/loglevel&gt;
+</code></pre>
+
+<blockquote>
+<p>Note: 'info' is the recommended log level for production systems.  At this log level you will get sip traces, which are useful for debugging.</p>
+</blockquote>
+<h5 id="sofia-loglevel">sofia-loglevel</h5>
+<p>The drachtio server uses the <a href="https://github.com/davehorton/sofia-sip">sofia</a> library internally.  The log level for this library can be set from 0 (minimal) to 9 (extensive).</p>
+<pre><code class="xml">&lt;sofia-loglevel&gt;3&lt;/sofia-loglevel&gt;
+</code></pre>
+
+<h3 id="command-line-arguments">command-line arguments</h3>
+<p>The <code>drachtio</code> executable can accept command-line arguments that specify some configuration parameters.  If provided, the command-line configuration parameters take preference over those specified in the configuration file.</p>
+<p>The supported drachtio command-line arguments are:
+* <code>--daemon</code> detach from the console and run as a daemon process.  Note: when running as a systemd service, this parameter is not necessary.
+* <code>--noconfig</code> ignore any logging configuration in the configuration file
+* <code>--file|-f filename</code> read configuration from specified file rather that <code>/etc/drachtio.conf.xml</code>
+* <code>--user|-u user</code> run as the named user rather than root
+* <code>--port|-p port</code> listen for tcp admin connections on the named port
+* <code>--tls-port</code> listen for tls admin connections on the named port. &nbsp;<em>Added in version 0.8.0-rc1</em>.
+* <code>--contact|-c</code> specifies a listening address/port/protocol.  Multiple instances of this parameter may be provided
+* <code>--external-ip ip-address</code> specifies an external address that the drachtio server should advertise in the SIP signaling. This parameter applies to the <code>--contact</code> parameter that it follows in the command line.
+* <code>dns-name name</code> a dns name that refer to the local server. This parameter applies to the <code>--contact</code> parameter that it follows in the command line.
+* <code>http-handler url</code> an HTTP URL of a web callback that will be invoked for all new incoming requests.  Setting this parameter turns on outbound connections for all SIP request types.
+* <code>http-method</code> either 'GET' or 'PUT'
+* <code>--loglevel level</code> the overall log level to set
+* <code>--sofia-loglevel level</code> the log level of the sofia library
+* <code>--stdout</code> write log output to console
+* <code>--homer ip-address:port</code> ip address of homer capture server to send to. HEP3  and udp transport will be used
+* <code>--homer-id id</code> id to use to represent this server when sending messages to homer
+* <code>--version</code> print the drachtio server version to console and exit.
+* <code>--mtu</code> specifies a message size, in bytes, for requests such that when outgoing requests exceed this threshold use of tcp is forced (this overrides the default sofia stack setting for the same). &nbsp;<em>Added in version 0.7.3-rc2</em>.
+* <code>--dh-param</code> dhparam file used for inbound tls admin connections. &nbsp;<em>Added in version 0.8.0-rc1</em>.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

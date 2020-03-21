@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>drachtio-server - My Docs</title>
+        <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../../..">My Docs</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../../..">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">developer guide <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../../developer-guide/introduction/">introduction</a>
+</li>
+                                    
+<li >
+    <a href="../../../developer-guide/middleware/">middleware</a>
+</li>
+                                    
+<li >
+    <a href="../../../developer-guide/sip-messages/">sip messages</a>
+</li>
+                                    
+<li >
+    <a href="../../../developer-guide/sip-dialogs/">sip dialogs</a>
+</li>
+                                    
+<li >
+    <a href="../../../developer-guide/sip-proxy/">sip proxy</a>
+</li>
+                                    
+<li >
+    <a href="../../../developer-guide/call-detail-records/">call detail records</a>
+</li>
+                                    
+<li >
+    <a href="../../../developer-guide/advanced-topics/">advanced topics</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">drachtio server <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../../drachtio-server/installing/">installing</a>
+</li>
+                                    
+<li >
+    <a href="../../../drachtio-server/running/">running</a>
+</li>
+                                    
+<li >
+    <a href="../../../drachtio-server/configuring/">configuring</a>
+</li>
+                                    
+<li >
+    <a href="../../../drachtio-server/messaging-protocol/">messaging protocol</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">release notes <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../drachtio-srf/release-notes/">drachtio-srf</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">drachtio-server</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../../drachtio-srf/release-notes/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="disabled">
+                                <a rel="prev" >
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#084">0.8.4</a></li>
+        <li class="main "><a href="#083">0.8.3</a></li>
+        <li class="main "><a href="#082">0.8.2</a></li>
+        <li class="main "><a href="#081">0.8.1</a></li>
+        <li class="main "><a href="#080">0.8.0</a></li>
+        <li class="main "><a href="#074">0.7.4</a></li>
+        <li class="main "><a href="#073">0.7.3</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h2 id="084">0.8.4</h2>
+<ul>
+<li>fix travis osx build</li>
+<li>add support for specifying number of log files to keep</li>
+<li>bugfix: crash sending ACK to target with dns name that needs to be resolved (110)</li>
+<li>bugfix - crash when RR header in 200 OK response has dns name (#110)</li>
+<li>add tests for handling reinvite with null sdp and invoking fnAck</li>
+<li>add dialogid to msgs back to app when sending a response within a dialog</li>
+<li>pass ip address:port new incoming request was received on to client applications</li>
+<li>bugfix: address to bind to for client connections was being ignored (#103)</li>
+<li>add support for adding headers to CANCEL request</li>
+<li>add support for tcp keepalive</li>
+<li>return 491 Request Pending if we receive a re-INVITE while still processing a previous INVITE transaction</li>
+<li>travis change to build node 10.x for tests</li>
+<li>temp revert nta_outgoing_destroy due to crash (#76)</li>
+</ul>
+<h2 id="083">0.8.3</h2>
+<h2 id="082">0.8.2</h2>
+<ul>
+<li>simplify timerD handling, fix some memory leaks related to not destroying sofia transactions in UAC scenarios</li>
+<li>change dialog id naming convention to "{call-id};from-tag={from-tag}", which more correctly maps to SIP standard and simplifies transfer scenarios in applications</li>
+<li><a href="https://github.com/davehorton/drachtio-server/blob/98f20d7b0cd672b275e048ba759673e2d99a2fc5/entrypoint.sh#L19">add support for detecting public ip</a> when running in a Docker container in Azure cloud</li>
+<li>include server version in response to authenticate command (allows clients to activate version-specific features). Version info is available to client (when using <a href="https://www.npmjs.com/package/drachtio-srf">drachtio-srf@4.4.8</a> or above, and connecting to a server at version 0.8.2 or above) as a parameter in the Srf#connect event, e.g.: </li>
+</ul>
+<pre><code class="js">  srf.on('connect', (err, hp, serverVersion) =&gt; {
+    console.log(serverVersion);
+    // &quot;v.0.8.2&quot;
+  });
+</code></pre>
+
+<ul>
+<li>bugfix: generate proper CDRs for B2B scenarios</li>
+<li>add support for 'ping' request from client</li>
+</ul>
+<h2 id="081">0.8.1</h2>
+<ul>
+<li>added support for <a href="https://drachtio.org/docs/drachtio-server#monitoring-section">prometheuos.io monitoring</a></li>
+<li>added support for configuring some settings via environment variables</li>
+<li>update to boost 1.69</li>
+<li>handle an incoming NOTIFY or request before dialog is formed (issue <a href="https://github.com/davehorton/drachtio-server/issues/75">#75</a>)</li>
+<li>changes to build properly on arm64</li>
+<li>update to latest sofia</li>
+</ul>
+<h2 id="080">0.8.0</h2>
+<ul>
+<li>bugfix: crash when requested protocol is not enabled (issue #64)</li>
+<li>add support for nat detection based on appearance of nat=yes in the Record-Route or Contact header (issue #66).  Some proxies are known to insert this when the detect nat scenarios.</li>
+<li>fix for some compile warnings.</li>
+<li>when choosing a transport for outbound invite, check the the protocol of the outbound proxy (if one is configured)</li>
+<li>include a transport= param in the Contact header in 200 OK response to incoming invite when transport is not udp (required by pjsip)</li>
+<li>add support for cloud deployments in Kubernetes where the public IP address must be dynamically discovered.</li>
+<li>added autogen.sh deprecating bootstrap.sh</li>
+<li>Major changes here to remove a lot of boost code which is now included in the C++ standard.  <strong>Most notably, gcc 4.9 or above is now required.</strong></li>
+<li>Compile with stdc++-17 if available, stdc++-11 if not.</li>
+<li>handle a mid-call network handoff, e.g. a client on a wifi network switches to LTE during a call - BYE should be sent to the new (on the LTE network) address.</li>
+<li>send ACK to failed response using same transport as response was received on.</li>
+<li>fix for sending to non-standard syslog UDP port, if specified in config.</li>
+<li>Added optional support for TLS encryption of messages between the drachtio server and drachtio-srf applications.  Requires drachtio-srf@4.4.0 or above.</li>
+<li>set timerG and timerH only for udp transports.</li>
+<li>handle SIGPIPE without exiting - can happen occasionally when a client disconnects.</li>
+<li>eliminate confusing / contradictory GPL license text.</li>
+</ul>
+<h2 id="074">0.7.4</h2>
+<ul>
+<li>Added support for establishing uas INVITE dialogs with clients that are behind a nat.</li>
+<li>fix crashing bug in non-UDP transport scenarios that was introduced in 0.7.4-rc1</li>
+</ul>
+<h2 id="073">0.7.3</h2>
+<ul>
+<li>Added support for tagged inbound connections; requires <a href="/releases">drachtio-srf@4.3.0</a> or above.</li>
+<li>client-server messaging changed from ascii to utf-8 in order to support message bodies with things like emojis.</li>
+<li>various Dockerfile fixes.</li>
+<li>run-time tests added and travis-ci changes to accomodate them.</li>
+<li>sofia-sip has an annoying feature where it forces an outbound request to go out TCP if the packet size exceeds a specific threshold (usually 1300 bytes).  A new configuration setting was added to allow users to increase this threshold to an arbitrary value.  This value can be provided in the configuration file, or via a command-line parameter, as illustrated below.</li>
+</ul>
+<p><strong>in drachtio.conf.xml</strong>
+<textarea rows="3" cols="40" style="border:none;">
+  <sip>
+    <udp-mtu>4096</udp-mtu>
+  </sip>
+</textarea></p>
+<p><strong>or, on command-line</strong>
+<textarea rows="1" cols="40" style="border:none;">
+  drachtio --mtu 4096
+</textarea></p>
+<ul>
+<li>Some clients (e.g. Tandberg) have an annoying habit of included a Route header on an initial INVITE; i.e. a "preloaded" Route header.  When proxying such an INVITE, the server now strips that header before sending the request onwards, so as not to confuse downstream elements.</li>
+<li>Ensure that 'from' tag on new outbound SIP requests use the local tag on the nta leg.  There were cases when an INVITE was challenged that the subsequent INVITE w/ authorization credentials was using the old tag from the completed leg, rather than the new leg created for the second request.</li>
+</ul></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+        </script>
+        <script src="../../../js/base.js" defer></script>
+        <script src="../../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

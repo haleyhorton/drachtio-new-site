@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>sip dialogs - My Docs</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">My Docs</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">developer guide <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../introduction/">introduction</a>
+</li>
+                                    
+<li >
+    <a href="../middleware/">middleware</a>
+</li>
+                                    
+<li >
+    <a href="../sip-messages/">sip messages</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">sip dialogs</a>
+</li>
+                                    
+<li >
+    <a href="../sip-proxy/">sip proxy</a>
+</li>
+                                    
+<li >
+    <a href="../call-detail-records/">call detail records</a>
+</li>
+                                    
+<li >
+    <a href="../advanced-topics/">advanced topics</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">drachtio server <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../drachtio-server/installing/">installing</a>
+</li>
+                                    
+<li >
+    <a href="../../drachtio-server/running/">running</a>
+</li>
+                                    
+<li >
+    <a href="../../drachtio-server/configuring/">configuring</a>
+</li>
+                                    
+<li >
+    <a href="../../drachtio-server/messaging-protocol/">messaging protocol</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">release notes <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../release-notes/drachtio-srf/release-notes/">drachtio-srf</a>
+</li>
+                                    
+<li >
+    <a href="../../release-notes/drachtio-server/release-notes/">drachtio-server</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../sip-messages/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../sip-proxy/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#sip-dialogs">SIP Dialogs</a></li>
+            <li><a href="#user-roles-in-a-dialog">User Roles in a Dialog</a></li>
+            <li><a href="#dialog">Dialog</a></li>
+            <li><a href="#uas">UAS</a></li>
+            <li><a href="#uac">UAC</a></li>
+            <li><a href="#b2bua">B2BUA</a></li>
+            <li><a href="#subscribe-dialogs">Subscribe Dialogs</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="sip-dialogs">SIP Dialogs</h1>
+<p>Conceptually, a SIP dialog is defined in <a href="https://tools.ietf.org/html/rfc3261">RFC 3261</a> as a relationship between two SIP endpoints that persists for a period time.  Generally speaking, we are referring most often to a multimedia call initiated by a SIP INVITE transaction during which audio and/or video is exchanged. (Later we will discuss an alternative type of dialog created by a SUBSCRIBE transaction).</p>
+<p>Within drachtio, A SIP dialog is an object that is created to represent a multimedia session and to allow a developer to manage such sessions: to create them, modify them, and tear them down.  </p>
+<p>The examples we have shown till now have illustrated how to manage SIP interactions at the SIP message level. However, in most cases the drachtio SIP Dialog API provides a higher-level abstraction that makes it easier for developers to manage sessions.</p>
+<h2 id="user-roles-in-a-dialog">User Roles in a Dialog</h2>
+<p>Some basic terminology is going to be helpful before diving into the API and some examples.</p>
+<p>A drachtio application can:
+* initiate an INVITE transaction -- in which case we say it is acting as a 'User Agent Client', or UAC,
+* respond to an incoming INVITE transaction -- in which case we call it a 'User Agent Server', or UAS, and/or
+* <em>both</em> receive <em>and</em> send an INVITE transaction -- in which case we call it a 'back to back User Agent', or B2BUA</p>
+<p>By the way, these are not the only types of applications we can build with drachtio. We can also build:
+* a registar -- which is an application that responds to REGISTER requests
+* a presence server -- which is an application that responds to SUBSCRIBE requests
+* an instant messaging server -- which responds to MESSAGE requests (<a href="https://github.com/davehorton/drachtio-simple-server">see here</a> for an example of a presence and messaging server)
+* a sip proxy -- which is an application that routes and forwards SIP requests</p>
+<p>Quite frequently, though, we will find ourselves wanting to build some form of SIP User Agent application, and that is what we will cover in this section.</p>
+<p>The dialog API consists of the methods
+* <a href="/docs/api#Srf+createUAC">Srf#createUAS</a>, 
+* <a href="/docs/api#Srf+createUAC">Srf#createUAC</a>, and 
+* <a href="/docs/api#Srf+createB2BUA">Srf#createB2BUA</a>.  </p>
+<p>Each of these methods produces a <a href="/docs/api/#Dialog">Dialog</a> object when a session is successfully established, which is returned via a callback (if provided) and resolves the Promise returned by each of the above methods.</p>
+<p>Before we review the above three methods, let's examine the <a href="/docs/api/#Dialog">Dialog</a> class itself, and how to work with it.</p>
+<h2 id="dialog">Dialog</h2>
+<p>The Dialog class is an event emitter, and has the following properties, methods, and events.</p>
+<h3 id="properties">properties</h3>
+<ul>
+<li><code>sip</code>: an object containing properties that identify the SIP dialog</li>
+<li><code>sip.callId</code>: the SIP Call-Id associated with this dialog</li>
+<li><code>sip.remoteTag</code>: the remote tag associated with the dialog</li>
+<li><code>sip.localTag</code>: the local tag associated with the dialog</li>
+<li><code>local</code>: an object containing properties associated with the local end of the dialog</li>
+<li><code>local.sdp</code>: the local session description protocol</li>
+<li><code>local.uri</code>: the local sip uri </li>
+<li><code>local.contact</code>: the local contact</li>
+<li><code>remote</code>: an object containing properties associated with the remote end of the dialog</li>
+<li><code>remote.sdp</code>: the remote session description protocol</li>
+<li><code>remote.uri</code>: the remote sip uri </li>
+<li><code>remote.contact</code>: the local contact</li>
+<li><code>id</code>: a unique identifier for the dialog with the drachtio framework</li>
+<li><code>dialogType</code>: either 'INVITE' or 'SUBSCRIBE'</li>
+</ul>
+<h3 id="methods">methods</h3>
+<ul>
+<li><a href="/docs/api#Dialog+destroy">destroy(opts, callback)</a>: terminates a dialog, by sending a BYE (in the case of an INVITE dialog), or a NOTIFY with Subscription-State: terminated (in the case of a SUBSCRIBE dialog).</li>
+<li><a href="/docs/api#Dialog+modify">modify(sdp, callback)</a>: modifies a SIP INVITE dialog by putting it on or off hold or re-INVITing to a new session description protocol.</li>
+<li><a href="/docs/api#Dialog+request">request(opts, callback)</a>: sends a SIP request within a dialog.</li>
+</ul>
+<h3 id="events">events</h3>
+<ul>
+<li><a href="/docs/api#Dialog+event_destroy">destroy(req)</a>: emitted when the remote end has terminated the dialog.  The <code>req</code> parameter represents the SIP request sent from the remote end to terminate the dialog.  (Note: no action is required by the application, as the drachtio server will have sent a 200 OK to the request).</li>
+<li><a href="/docs/api#Dialog+event_hold">hold(req)</a>: emitted when the remote end has placed the call on hold.  The <code>req</code> parameter represents the INVITE on hold sent. (Note: no action is required by the application, as the drachtio server will have sent a 200 OK to the request).</li>
+<li><a href="/docs/api#Dialog+event_modify">modify(req,res)</a>: emitted when the remote end has sent a re-INVITE with a changed session description protocol.  The application must respond, using the <code>res</code> parameter provided.</li>
+<li><a href="/docs/api#Dialog+event_refresh">refresh(req)</a>: emitted when the remote end has sent a refreshing re-INVITE.  (Note: no action is required by the application, as the drachtio server will have sent a 200 OK to the request).</li>
+<li><a href="/docs/api#Dialog+event_unhold">unhold(req)</a>: emitted when the remote end has taken the call off hold.  The <code>req</code> parameter represents the INVITE off hold sent. (Note: no action is required by the application, as the drachtio server will have sent a 200 OK to the request).</li>
+<li><a href="/docs/api#Dialog+event_info">info(req, res)</a></li>
+<li><a href="/docs/api#Dialog+event_message">messsage(req, res)</a></li>
+<li><a href="/docs/api#Dialog+event_options">options(req, res)</a></li>
+<li><a href="/docs/api#Dialog+event_publish">publish(req, res)</a></li>
+<li><a href="/docs/api#Dialog+event_refer">refer(req, res)</a></li>
+<li><a href="/docs/api#Dialog+event_subscribe">subscribe(req, res)</a></li>
+<li><a href="/docs/api#Dialog+event_update">update(req, res)</a>: these and the above events are emitted when a SIP request of the specified type is received within a dialog.  The application must respond, using the <code>res</code> parameter provided.  If the application does not have a listener registered for the event, then the drachtio server will automatically respond with a 200 OK.</li>
+</ul>
+<blockquote>
+<p>Pro tip: while there are many operations you might want to perform on a Dialog object, the one thing you should <em>always</em> do is to listen for the 'destroy' event.  You should attach a listener for 'destroy' whenever you create a new dialog.  This will tell you when the remote side has hung up, and after this you will no longer be able to operate on the dialog.</p>
+</blockquote>
+<h2 id="uas">UAS</h2>
+<p>Whew!  With that background under our belt we can finally get to the meat of the matter -- creating and managing calls.</p>
+<p>When we receive an incoming call and connect it to an IVR, or to a conference bridge, our application is acting as a UAS. Let's look at these scenarios first.</p>
+<p>The one piece of information we need when acting as a UAS is the session description protocol (sdp) that we want to offer in our 200 OK.  Creating media endpoints is outside the scope of drachtio-srf, so the examples below assume that our application has obtained them through other means.</p>
+<blockquote>
+<p>Note: check out <a href="https://www.npmjs.com/package/drachtio-fsmrf">drachtio-fsmrf</a>, which is a npm module that can be used with drachtio-srf to control media resources on a <a href="https://freeswitch.com/">Freeswitch</a> media server in order to provide IVR and conferencing features to drachtio applications.</p>
+</blockquote>
+<pre><code class="js">srf.invite((req, res) =&gt; {
+  let sdp = 'some-session-description-protocol'
+  srf.createUAS(req, res, {
+    localSdp: sdp  
+  })
+    .then((dialog) =&gt; {
+      console.log('successfully created UAS dialog');
+      dialog.on('destroy', () =&gt; console.log('remote party hung up'));
+    })
+    .catch((err) =&gt; {
+      console.log(`Error creating UAS dialog: ${err}`);
+    }) ;
+});
+</code></pre>
+
+<p>In the example above, the local sdp is provided as a string, but we can alternatively provide a function that returns a Promise which resolves to a string value representing the session description protocol.  This is useful when we have to perform some sort of asynchronous operation to obtain the sdp.</p>
+<pre><code class="js">function getMySdp() {
+  return doSomeNetworkOperation()
+    .then((results) =&gt; {
+      return results.sdp;
+    });
+}
+srf.invite((req, res) =&gt; {
+  let sdp = 'some-session-description-protocol'
+  srf.createUAS(req, res, {
+    localSdp: getMySdp
+  })
+    .then((dialog) =&gt; { .. })
+    .catch((err) =&gt; { .. });
+});
+</code></pre>
+
+<p>Of course, we can supply SIP headers in the usual manner:</p>
+<pre><code class="js">srf.invite((req, res) =&gt; {
+  srf.createUAS(req, res, {
+    localSdp: sdp, 
+    headers: {
+     'User-Agent': 'drachtio/iechyd-da',
+     'X-Linked-UUID': '1e2587c'
+    }
+  })
+    .then((dialog) =&gt; { .. });
+});
+</code></pre>
+
+<p>If <a href="/docs/api#Srf+createUAS">Srf#createUAS</a> fails to create a dialog for some reason, an error object will be returned via either callback or the Promise.  If the failure is due to a SIP non-success status code, then a <a href="/docs/api#siperror">SipError</a> will be returned.  In the UAS scenario, the only time this will happen is if the call is canceled by the caller before we answer it, in which case a '487 Request Terminated' will be the final SIP status.</p>
+<pre><code class="js">srf.invite((req, res) =&gt; {
+  srf.createUAS(req, res, {
+    localSdp: sdp, 
+    headers: {
+     'User-Agent': 'drachtio/iechyd-da',
+     'X-Linked-UUID': '1e2587c'
+    }
+  })
+    .then((dialog) =&gt; { .. })
+    .catch((err) =&gt; {
+      if (err instanceof Srf.SipError &amp;&amp; err.status === 487) {
+        console.log('call canceled by caller');
+      }
+    })
+</code></pre>
+
+<p>Finally, as noted above, <a href="/docs/api#Srf+createUAS">Srf#createUAS</a> can be invoked with a callback as an alternative to Promises.  In most of the examples in this document we will use Promises, but an example of using a callback is presented below.</p>
+<pre><code class="js">srf.invite((req, res) =&gt; {
+  let sdp = 'some-session-description-protocol'
+  srf.createUAS(req, res, {
+    localSdp: sdp  
+  }, (err, dialog) =&gt; {
+    if (err) console.log(`Error creating UAS dialog: ${err}`);
+    else {
+      console.log('successfully created UAS dialog');
+      dialog.on('destroy', () =&gt; console.log('remote party hung up'));
+    }
+  });
+});
+</code></pre>
+
+<h2 id="uac">UAC</h2>
+<p>When we initiate a dialog by sending an INVITE, we are acting as a UAC.  We use the <a href="/docs/api#Srf+createUAC">Srf#createUAC</a> method to accomplish this.  Just as with <a href="/docs/api#Srf+createUAS">Srf#createUAS</a>, either a callback approach or a Promise-based approach is supported.</p>
+<p>In the simplest example, we can provide only the Request-URI we want to send to, and the session description protocol we are offering in the INVITE in that example:</p>
+<pre><code class="js">let mySdp; // populated somehow with SDP we want to offer
+srf.createUac('sip:1234@10.10.100.1', {localSdp: mySdp})
+  .then((dialog) =&gt; {
+    dialog.on('destroy', () =&gt; console.log('called party ended call'));
+  })
+  .catch((err) =&gt; {
+    console.log(`call failed with ${err});
+  });
+</code></pre>
+
+<blockquote>
+<p>Pro tip: we can specify the Request-Uri either a full sip uri, as above, or simply provide an ip address (or ip address:port, if we want to send to a non-default SIP port).</p>
+</blockquote>
+<h3 id="what-did-drachtio-server-do-in-all-this">What did drachtio server do in all this?</h3>
+<p>In the example above, we supplied only the Request-URI and body of the INVITE, so the drachtio server must have done quite a bit in terms of filling out the rest of the message and managing various aspects of the transaction.  </p>
+<p>In fact, the drachtio server would have done all of the following to create the outgoing INVITE:
+* generated a (unique) SIP Call-ID and a CSeq
+* generated the appropriate Via header (pro tip: never provide a Via: header, always let drachtio generate that)
+* generated the From header (with no user element in the URI), and generated a From tag
+* generated the To header (according to the Request-URI we provided)
+* generated a Contact header, based on the Request-URI and the address:port(s) that the server is listening on for SIP messages
+* examined the body that we provided and -- seeing that it was an sdp -- created a Content-Type of 'application/sdp'
+* calculated the Content-Length header (pro tip: never provide a Content-Length: header, always let drachtio generate that)</p>
+<p>It would have then sent the INVITE, and managed any provisional and final responses.  It would have generated the final ACK request as well.  If a reliable provisional response were received, it would have responded with the required PRACK request.</p>
+<p>Beyond this basic usage, there are several other common patterns.  Let's look at some of them.</p>
+<h3 id="receiving-provisional-responses">Receiving provisional responses</h3>
+<p>When we send out an INVITE, we may get some provisional (1XX) responses back before we get a final response.  In the example above, we did not care to do anything with these provisional responses, but if we want to receive them we can add a callback that will be invoked when we receive a provisional response.  This callback, named <code>cbProvisional</code>, along with another we will describe shortly, are provided in an optional Object parameter as shown below.</p>
+<pre><code class="js">srf.createUac('sip:1234@10.10.100.1', {localSdp: mySdp}, {
+    cbProvisional: (res) =&gt; console.log(`got provisional response: ${res.status}`))
+  })
+  .then((dialog) =&gt; {
+    dialog.on('destroy', () =&gt; console.log('called party ended call'));
+  })
+  .catch((err) =&gt; {
+    console.log(`call failed with ${err.status}`);
+  });
+</code></pre>
+
+<blockquote>
+<p>Note: if the INVITE fails, a <a href="/docs/api#siperror">SipError</a> object will be returned, and the final SIP non-success status can be retrieved from <code>err.status</code> as shown above.</p>
+</blockquote>
+<h3 id="canceling-an-invite-we-sent">Canceling an INVITE we sent</h3>
+<p>Sometimes, we may want to cancel an INVITE that we have sent before it is answered.  Related to this, we may simply want to get access to details of the actual INVITE that was sent out over the wire.  To do this, we can provide a <code>cbRequest</code> callback in the callback object mentioned above.  This callback receives a <code>req</code> object representing the INVITE that was sent over the wire.  If we later want to cancel the INVITE, we simply call <code>req.cancel()</code>.</p>
+<pre><code class="js">let invite, dlg;
+srf.createUac('sip:1234@10.10.100.1', {localSdp: mySdp}, {
+    cbRequest: (err, req) =&gt; invite = req),
+    cbProvisional: (res) =&gt; console.log(`got provisional response: ${res.status}`))
+  })
+  .then((dialog) =&gt; {
+    dlg = dialog
+    dialog.on('destroy', () =&gt; console.log('called party ended call'));
+  })
+  .catch((err) =&gt; {
+    console.log(`call failed with ${err}`);
+  });
+
+  someEmitter.on('some-event', () =&gt; {
+    // something happened to make us want to cancel the call
+    if (!dlg &amp;&amp; invite) invite.cancel();
+  });
+</code></pre>
+
+<h3 id="authentication">Authentication</h3>
+<p>If we send an INVITE that is challenged (with either a 401 Unauthorized or a 407 Proxy Authentication Required), we can have the drachtio framework handle this if we provide the username and password in the <code>opts.auth</code> parameter:</p>
+<pre><code class="js">let mySdp; // populated somehow with SDP we want to offer
+srf.createUac('sip:1234@10.10.100.1', {
+  localSdp: mySdp,
+  auth: {
+    username: 'dhorton',
+    password: 'foobar'
+  }
+})
+  .then((dialog) =&gt; {
+    dialog.on('destroy', () =&gt; console.log('called party ended call'));
+  })
+  .catch((err) =&gt; {
+    console.log(`call failed with ${err});
+  });
+</code></pre>
+
+<h3 id="sending-through-an-outbound-sip-proxy">Sending through an outbound SIP proxy</h3>
+<p>If we want the INVITE to be sent through an outbound SIP proxy, rather than directly to the endpoint specified in the Request-URI, we can specify an <code>opts.proxy</code> parameter:</p>
+<pre><code class="js">let mySdp; // populated somehow with SDP we want to offer
+srf.createUac('sip:1234@10.10.100.1', {
+  localSdp: mySdp,
+  proxy: 'sip:proxy.enterprise.com'
+})
+  .then((dialog) =&gt; {
+    dialog.on('destroy', () =&gt; console.log('called party ended call'));
+  })
+  .catch((err) =&gt; {
+    console.log(`call failed with ${err});
+  });
+</code></pre>
+
+<h3 id="specifying-calling-number-or-called-number">Specifying calling number or called number</h3>
+<p>If we want to specify the calling party number to use in the From header of the INVITE, and/or the called party number to use in the To header as well as the Request-URI, we can do so simply like this:</p>
+<pre><code class="js">let mySdp; // populated somehow with SDP we want to offer
+srf.createUac('sip:1234@10.10.100.1', {
+  localSdp: mySdp,
+  callingNumber: '+18584083089',
+  calledNumber: '+15083345988'
+})
+  .then((dialog) =&gt; {
+    dialog.on('destroy', () =&gt; console.log('called party ended call'));
+  })
+  .catch((err) =&gt; {
+    console.log(`call failed with ${err});
+  });
+</code></pre>
+
+<blockquote>
+<p>Pro tip: Where possible, use this approach of providing 'opts.callingNumber' rather than trying to provide a full From header.</p>
+<p>Pro tip: If you <em>really</em> want to provide the full From header, for the host part of the uri use the string 'localhost'.  The drachtio server will handle this by replacing the host value with the proper IP address for the server.</p>
+</blockquote>
+<h3 id="sending-a-3pcc-invite">Sending a 3PCC INVITE</h3>
+<p>A scenario known as third-party call control (3PCC) occurs when a UAC sends an INVITE with no body -- i.e., no session description protocol is initially offered.  In this call flow, after the offer is received in the 200 OK response from the B party, the UAC sends its sdp in the ACK to establish the media flows.</p>
+<p>To accomplish this, the <a href="/docs/api#Srf+createUAC">Srf#createUAC</a> can be used.  However, because of the need to specify an SDP in the ACK, the application must take additional responsibility for generating the ACK.</p>
+<p>Furthermore, instead of delivering a Dialog, the Promise (or callback) will render an object containing two properties:
+* <code>sdp</code>: the sdp received in the 200 OK from the B party, and
+* <code>ack</code>: a function that the application must call, providing the SDP to be included in the ACK as the first parameter.  The function returns a Promise that resolves to the Dialog created by the ACK.</p>
+<p>With that as background, let's see an example:</p>
+<pre><code class="js">srf.createUac('sip:1234@10.10.100.1', {
+  callingNumber: '+18584083089',
+  calledNumber: '+15083345988',
+  noAck: true
+})
+  .then((obj) =&gt; {
+    console.log(`received sdp offer ${obj.sdp} from B party`);
+    let mySdp = allocateSdpSomehow();
+    return obj.ack(mySdp);
+  })
+  .then((dialog) =&gt; {
+    dialog.on('destroy', () =&gt; console.log('called party ended call'));  
+  })
+  .catch((err) =&gt; {
+    console.log(`call failed with ${err});
+  });
+</code></pre>
+
+<p>Note a few things in this example:
+* There was no <code>opts.body</code> parameter in the call to <a href="/docs/api#Srf+createUAC">Srf#createUAC</a>: the absence of a body signals the drachtio framework that we are intending a 3PCC scenario.
+* The use of <code>opts.noAck</code> indicates that we do <em>not</em> want the framework to generate the ACK for us, and that instead we will explicitly call the <code>obj.ack()</code> function to take responsibility for that.</p>
+<p>There is also a fairly common alternative 3PCC special case where you may want to offer a "null" SDP in the ACK, i.e. creating an initially inactive media stream that you will later activate with a re-INVITE.  In that case, you can simply remove the <code>opts.noAck</code> parameter and the Promise/callback will deliver the completed dialog as in the normal case -- the framework will generate the appropriate "null" sdp and generate the ACK for you.</p>
+<pre><code class="js">srf.createUac('sip:1234@10.10.100.1', {
+  callingNumber: '+18584083089',
+  calledNumber: '+15083345988'
+})
+  .then((dialog) =&gt; {
+    console.log(`created dialog with inactive media`);
+    dialog.on('destroy', () =&gt; console.log('called party ended call'));  
+  })
+  .catch((err) =&gt; {
+    console.log(`call failed with ${err});
+  });
+</code></pre>
+
+<h2 id="b2bua">B2BUA</h2>
+<p>When we receive an incoming INVITE (the A leg), and then send a new outgoing INVITE on a different SIP transaction (the B leg), we are acting as a back to back user agent. We use the <a href="/docs/api#Srf+createB2BUA">Srf#createB2BUA</a> method to accomplish this.  Once again, either a callback approach or a Promise-based approach is supported.</p>
+<p>As with the UAC scenario, the simplest usage is to provide the Request-URI to send the B leg to and the sdp to offer on the B leg.  If successful, our application receives two SIP dialogs: a UAS dialog (the A leg) and a UAC dialog (the B leg);</p>
+<pre><code class="js">srf.invite((req, res) =&gt; {
+  srf.createB2BUA(req, res, 'sip:1234@10.10.100.1', {localSdpB: req.body})
+    .then({uas, uac} =&gt; {
+      console.log('call successfully connected');
+
+      // when one side hangs up, we hang up the other
+      uas.on('destroy', () =&gt; uac.destroy());
+      uac.on('destroy', () =&gt; uas.destroy());
+    })
+    .catch((err) =&gt; console.log(`call failed to connect: ${err}`));
+});
+</code></pre>
+
+<p>Beyond this simple example, there are many options.  Let's look at some of them:</p>
+<h3 id="copying-headers-from-the-a-leg-onto-the-b-leg">Copying headers from the A leg onto the B leg</h3>
+<p>It's quite common for us to want to include on the B leg INVITE some of the headers that we received on the A leg; vice-versa, we may want to include on the A leg response some of the headers that we received on the B leg response.  </p>
+<p>This can be achieved with the <code>opts.proxyRequestHeaders</code> and the <code>opts.proxyResponseHeaders</code> properties in the optional <code>opts</code> parameter.  If provided, these should include an array of header names that should be copied from one to the other.</p>
+<p>The example below illustrates a B2BUA app that wants to pass authentication headers between endpoints </p>
+<pre><code class="js">srf.invite((req, res) =&gt; {
+  srf.createB2BUA(req, res, 'sip:1234@10.10.100.1' {
+    localSdpB: req.body,
+    proxyRequestHeaders: ['Proxy-Authorization', 'Authorization'],
+    proxyResponseHeaders: ['WWW-Authenticate', 'Proxy-Authentication']
+  })
+    .then({uas, uac} =&gt; {
+      console.log('call successfully connected');
+
+      // when one side hangs up, we hang up the other
+      uas.on('destroy', () =&gt; uac.destroy());
+      uac.on('destroy', () =&gt; uas.destroy());
+    })
+    .catch((err) =&gt; console.log(`call failed to connect: ${err}`));
+});
+</code></pre>
+
+<h3 id="obtaining-the-uac-dialog-as-soon-as-possible">Obtaining the UAC dialog as soon as possible</h3>
+<p>When the <a href="/docs/api#Srf+createB2BUA">Srf#createB2BUA</a> completes successfully, it provides us the two dialog that have been established.  </p>
+<p>However, in rare cases it may be desirable to receive the UAC dialog as soon as it is established -- that is, as soon as we have received a 200 OK from the B party, before we have sent the 200 OK back to the A party, and before the Srf#createB2BUA](/docs/api#Srf+createB2BUA) method has resolved the Promise that it returns.</p>
+<p>For this need, similar to <a href="/docs/api#Srf+createUAC">Srf#createUAC</a>, there is an optional callback object that contains a callback named <code>cbFinalizedUac</code> that, if provided, is invoked with the UAC dialog as soon as it is created.  (Note: the <code>cbProvisional</code> and <code>cbRequest</code> callbacks are also available).</p>
+<pre><code class="js">srf.invite((req, res) =&gt; {
+  srf.createB2BUA(req, res, 'sip:1234@10.10.100.1', {
+    localSdpB: req.body
+  }, {
+    cbFinalizedUac: (uac) =&gt; {
+      console.log(`successfully connected to B party at ${uac.remote.contact}`);
+    }
+  })
+    .then({uas, uac} =&gt; {
+      console.log('call successfully connected');
+
+      // when one side hangs up, we hang up the other
+      uas.on('destroy', () =&gt; uac.destroy());
+      uac.on('destroy', () =&gt; uas.destroy());
+    })
+    .catch((err) =&gt; console.log(`call failed to connect: ${err}`));
+});
+</code></pre>
+
+<h3 id="modifying-sdp-offered-to-a-leg-in-sip-response">Modifying SDP offered to A leg in SIP response</h3>
+<p>By default, <a href="/docs/api#Srf+createUAC">Srf#createUAC</a> will respond with a 200 OK to the A leg INVITE with the sdp that it received from the B party in the 200 OK on the B leg.  In other words, it simply proxies the session description protocol offer from B back to A.</p>
+<p>Sometimes, however, it is desirable to transform or modify the SDP received on the B leg before sending it back on the A leg.  For this purpose, the <code>opts.localSdpA</code> parameter is available.  This parameter can either be a string, containing the sdp to offer in the 200 OK back to the A leg, or it can be a function returning a Promise that resolves to the sdp to return in the 200 OK to the A leg.  The function has the signature <code>(sdpB, res)</code>, where <code>sdpB</code> is the session description offer we received in the 200 OK from the B party, and <code>res</code> is the response object we received on the B leg.</p>
+<p>Rather than include an example here, please refer to the source code for the <a href="https://github.com/davehorton/drachtio-b2b-media-proxy/blob/master/app.js">drachtio-b2b-media-proxy</a> application, which is a simple B2BUA that uses <a href="https://github.com/sipwise/rtpengine">rtpengine</a> to proxy the media.  This is a great example of when you would want to transform the SDP from B before returning the final session description offer to A.</p>
+<h3 id="choosing-not-to-propagate-failure-from-b-leg">Choosing not to propagate failure from B leg</h3>
+<p>By default, if we get a final SIP non-success from the B party it will be propagated back to the A party.  There are times where we would prefer not to do so; for instance, if having failed to connect the A party to one endpoint or phone number, we would now wish to try another.</p>
+<p>Setting <code>opts.passFailure</code> to value of false enables this behavior.</p>
+<pre><code class="js">srf.invite((req, res) =&gt; {
+  srf.createB2BUA(req, res, 'sip:1234@10.10.100.1', {localSdpB: req.body, passFailure: false})
+    .then({uas, uac} =&gt; {
+      console.log('call connected to primary destination');
+    })
+    .catch((err) =&gt; {
+      // try backup if we got a sip non-success response and the caller did not hang up
+      if (err.status !== 487) {
+        console.log(`failed connecting to primary, will try backup: ${err}`);
+        srf.createB2BUA(req, res, 'sip:1234@10.10.100.2', {
+          localSdpB: req.body}
+        })
+        .then({uas, uac} =&gt; {
+          console.log('call connected to backup destination');
+        })
+        catch((err) =&gt; {
+          console.log(`failed connecting to backup uri: ${err}`);
+        });
+      }
+    });
+  });
+</code></pre>
+
+<p>Note that we had to check that the reason for the failure connecting our first attempt was not a 487 Request Cancelled, because this is the error we receive when the caller (A party) hung up before we connected the B party.  In that case, we no longer would want to attempt a backup destination.</p>
+<p>This also answers a related question you may have had: what happens when the A part hangs up before connected, and does our app need to do anything specifically to cancel the B leg when the A leg cancels?  The answer to the latter is no, the drachtio framework will automatically cancel the B leg if the A leg is canceled.</p>
+<h2 id="subscribe-dialogs">Subscribe Dialogs</h2>
+<p>SUBSCRIBE requests also establish SIP Dialogs, as per <a href="https://www.ietf.org/rfc/rfc3265.txt">RFC 3265</a>. </p>
+<p>A UAC (the <em>subscriber</em>) sends a SUBSCRIBE request with an Event header indicating the event that is being subscribed to, and the UAS (the <em>notifier</em>) responds with a 202 Accepted response.  The UAS should then immediately send a NOTIFY to the UAC of the current state of the requested resource.  To terminate a SUBSCRIBE dialog, the UAS sends a NOTIFY request with Subscription-State: terminated; while a UAC would send another SUBSCRIBE with an Expires: 0.</p>
+<p>The dialog produced by the <a href="/docs/api#Srf+createUAS">Srf#createUAS</a> method will be a SUBSCRIBE dialog if the request was a SUBSCRIBE.  While the <a href="/docs/api#Srf+createUAS">Srf#createUAS</a> method call will send a 202 Accepted, it does <em>not</em> send the initial NOTIFY request that should follow -- the application must do that, since the content can only be determined by the application itself.</p>
+<pre><code class="js">srf.subscribe((req, res) =&gt; {
+  srf.createUAS(req, res, {
+    {
+      headers: {'Expires': req.get('Expires')
+    }  
+  })
+    .then((dialog) =&gt; {
+      dialog.on('destroy', () =&gt; console.log('remote party terminated dialog'));
+
+      // send initial NOTIFY
+      let myContent = 'some content reflecting current resource state..';
+
+      return dialog.request({
+        method: 'NOTIFY',
+        headers: {
+          'Subscription-State': 'active',
+          'Event': req.get('Event'),
+          'Content-Type': 'application/pidf+xml' // or whatever
+        },
+        body: myContent
+      });
+    });
+});
+</code></pre>
+
+<blockquote>
+<p>Pro tip: If you need to query a dialog to see whether it is an INVITE or a SUBSCRIBE dialog, you can use the <code>dialogType</code> (read-only) property of the Dialog object to determine that.</p>
+</blockquote>
+<p>The <a href="/docs/api#Srf+createUAC">Srf#createUAC</a> method can also be used to generate a SUBSCRIBE dialog as a UAC/subscriber.  To do this, specify <code>opts.method</code> should be set to 'SUBSCRIBE'.</p>
+<pre><code class="js">srf.createUac('sip:resource@example.com', {
+    method: 'SUBSCRIBE',
+    headers: {
+      'From': '&lt;sip:user@locahost&gt;',
+      'Event': 'presence',
+      'Expires': 3600
+    }
+  })
+  .then((dialog) =&gt; {
+    dialog.on('destroy', () =&gt; console.log('remote party ended dialog'));
+
+    dialog.on('notify', (req, res) =&gt; {
+      res.send(200);
+
+      console.log(`received NOTIFY for event ${req.get('Event')}`);
+      if (req.body) {
+        console.log(`received content of type ${req.get('Content-Type')}: ${req.body}`);
+      }
+    });
+  });
+</code></pre>
+
+<blockquote>
+<p>Note in the example above the use of 'localhost' as the host part of the uri of the From header.  As mentioned earlier, this will cause the drachtio server to replace this with the appropriate IP address of the server.</p>
+</blockquote></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"search": 83, "next": 78, "help": 191, "previous": 80};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
