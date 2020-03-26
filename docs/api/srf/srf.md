@@ -56,26 +56,26 @@ Make an inbound connection to a drachtio server. Note that as of drachtio-srf 4.
 
 | Parameters          | Type   | Description 
 | --------------------|--------|-----------|
-| opts                | Object | Configuration options
-| opts.host           | string | IP address or DNS name of server to connect to
-| opts.port (optional)| number | port to connect to. Default: 9022 
-| opts.secret         | string | shared secret 
-| opts.tls            | Object | options for establishing a TLS connection. [See here for a full list of options](./) 
+| opts                | Object | Configuration options.
+| opts.host           | string | IP address or DNS name of server to connect to.
+| opts.port (optional)| number | Port to connect to. Default: 9022 
+| opts.secret         | string | Shared secret. 
+| opts.tls            | Object | Options for establishing a TLS connection. [See here for a full list of options](./) 
 
 ### createUAS (req,res,opts, [callback])
 Create a SIP dialog, acting as a UAS dialog, acting as a UAS (user agent server); i.e. respond to an incoming SIP INVITE with a 200 OK (or to a SUBSCRIBE request with a 202 Accepted). 
 
 | Parameters                | Type     | Description
 |---------------------------|----------|------------
-| req                       | Request  | The incoming sip request object. 
-| res                       | Response | The sip response object. 
+| req                       | Request  | The incoming SIP request object. 
+| res                       | Response | The SIP response object. 
 | opts                      | Object   | Configuration options. 
 | opts.localSdp (optional)  | string   | The local session description protocol to include in the SIP response. 
 | opts.headers (optional)   | Object   | SIP headers to include on the SIP response to the INVITE. 
 | callback (optional)       | function | If provided, callback with signature (err, dialog)
 
 #### Returns 
-a Promise if no callback is provided, otherwise a reference to the Srf instance. 
+A Promise if no callback is provided, otherwise a reference to the Srf instance. 
 
 ### Examples 
 
@@ -120,21 +120,21 @@ Create a SIP dialog, acting as a UAC (user agent client).
 
 | Parameters              | Type   | Description 
 |-------------------------|--------|------------
-| uri                     | string | request uri to send to.
+| uri                     | string | Request uri to send to.
 | opts                    | Object | Configuration options. 
-| opts. methods (optional)| string | methods of request. (Defult: INVITE) 
-| opts.localSdp (optional)| string | the local session description protocol to include the SIP INVITE request 
-| opts.proxy (optional)   | string | send the request through an outbound proxy, specified as full sip uri or address [:port]
+| opts. methods (optional)| string | Methods of request. (Defult: INVITE) 
+| opts.localSdp (optional)| string | The local session description protocol to include the SIP INVITE request. 
+| opts.proxy (optional)   | string | Send the request through an outbound proxy, specified as full sip uri or address [:port].
 | opts.headers (optional) | Object | SIP headers to include on the SIP request. 
-| opts.auth (optional)    | Object I Function | Object containing sip credentials to use if challenged, or a function that returns the same. If a function is provided, it will be called with (req, res, callback) - the request that was sent as well as the response received; the function must invoke the callback with signature (err, username, password)
-| opts.auth.username (optional) | string | sip username 
-| opts.auth.password (optional) |string | sip password 
-| progressCallbacks.cbRequest (optional) | function | callback that provides request sent over the wire, with signature (err, req)
-| progressCallbacks.cbProvisional (optional) | function | callback that provides a provisional response with signature (provisionalRes)
+| opts.auth (optional)    | Object I Function | Object containing sip credentials to use if challenged, or a function that returns the same. If a function is provided, it will be called with (req, res, callback) - the request that was sent as well as the response received; the function must invoke the callback with signature (err, username, password).
+| opts.auth.username (optional) | string | SIP username 
+| opts.auth.password (optional) |string | SIP password 
+| progressCallbacks.cbRequest (optional) | function | Callback that provides request sent over the wire, with signature (err, req).
+| progressCallbacks.cbProvisional (optional) | function | Callback that provides a provisional response with signature (provisionalRes).
 | callback (optional) | function | If provided, callback with signature (err, dialog). 
 
 #### Returns: 
-a promise that resolves to {uac, uas} if no callback is provided, otherwise a reference to the Srf instance.
+A Promise that resolves to {uac, uas} if no callback is provided, otherwise a reference to the Srf instance.
 
 ### Examples 
 > simple B2BUA 
@@ -253,7 +253,7 @@ Release outbound connection from the server.
 
 | Parameters | Type | Description 
 |------------|------|-----------
-| msg        | [Request](./) I [Response](./) | A SIP request or response message recieved through a method event handler 
+| msg        | [Request](./) I [Response](./) | A SIP request or response message recieved through a method event handler. 
 
 #### Returns: 
 undefined. 
@@ -269,8 +269,8 @@ Reference to the Srf instance.
 | opts | Object | Configuration options 
 | opts.host (optional) | string | IP address or DNS name of server to connect to. Default: 0.0.0.0 
 | opts.port | number | tcp port to listen on 
-| opts.secret| string | shared secret 
-|opts.tls | object | options for establishing a TLS connection. [See here for a full list of options](./)
+| opts.secret| string | Shared secret 
+|opts.tls | object | Options for establishing a TLS connection. [See here for a full list of options](./)
 
 ### proxyRequest (req, [destination], [opts], [callback]) 
 Proxy an incoming request. 
@@ -282,11 +282,11 @@ Proxy an incoming request.
 | opts (optional) | Object | Configuration options. 
 | opts.forking (optional) | string | When multiple destinations are provided, this option governs whether they are attemped sequentially or in parallel. Valid values are 'sequential' or 'parallel'. Default: sequential. 
 | opts.remainInDialog (optional) | string | If true, add Record-Route header and remain in the SIP dialog (i.e. receiving further SIP messaging for the dialog, including the terminating BYE request). Alias: 'recordRoute'. Default: false.
-| opts.proxy (optional) | string | Send the request through an outbound proxy, specified as full sip rui or address[:port]
+| opts.proxy (optional) | string | Send the request through an outbound proxy, specified as full SIP rui or address[:port].
 | opts.provisionalTimeout (optional) | string | Timeout after which to attempt the next destination if no 100 Trying response has been received. Examples of valid syntax for this property are '1500ms,' or '2s'. 
 | opts.finalTimeout (optional) | string | Timeout, in miliseconds, after which to cancel the current request and attempt the next destination if no final response has been received. Syntax is the same as for the provisionalTimeout property. 
 | opts.followRedirects (optional) | boolean | If true, handle 3XX redirect responses by generating a new request as per the Contact header; otherwise, proxy the 3XX response back upstream without generating a new response. Default: false. 
-| callback (optional) | function | If provided, callback with signature (err, results), where 'results' is a JSON object describing the individual sip call attempts and results. 
+| callback (optional) | function | If provided, callback with signature (err, results), where 'results' is a JSON object describing the individual SIP call attempts and results. 
 
 #### Returns: 
 A Promise if no callback is provided, otherwise a reference to the Srf instance.
@@ -358,7 +358,7 @@ const Srf = require('drachtio-srf');
 ``` 
 
 ### use ([method], handler)
-Installs sip middleware, optionally invoked only for a specific method type.
+Installs SIP middleware, optionally invoked only for a specific method type.
 
 | Parameters | Type | Description 
 |------------|------|-----------
@@ -478,7 +478,7 @@ Function - a function that parses a SIP uri and returns an object.
 ``` 
 
 ### Srf.SipError 
-Static property returning a SipError class. A SipError has 'status' and 'reason' properties corresponding to the sip non-success result. 
+Static property returning a SipError class. A SipError has 'status' and 'reason' properties corresponding to the SIP non-success result. 
 
 #### Returns: 
 SipError - a SipError object
@@ -489,7 +489,7 @@ A SIP Dialog represents a session between two SIP endpoints. You do not create a
 ## Methods 
 
 ### destroy (opts,[callback])
-Destroy the sip dialog by generating a BYE request (in the case of INVITE dialog), or NOTIFY (in the case of SUBSCRIBE). 
+Destroy the SIP dialog by generating a BYE request (in the case of INVITE dialog), or NOTIFY (in the case of SUBSCRIBE). 
 
 | Parameters | Type | Description 
 |------------|------|-------------
@@ -603,7 +603,7 @@ Object containing information about the local side of the Dialog.
 
 | Parameters | Type | Description 
 |------------|------|---------
-| uri | string | Local sip uri. 
+| uri | string | Local SIP uri. 
 | sdp | string | Local sdp. 
 | contact | string | Local contact header. 
 
@@ -612,11 +612,11 @@ Object containing information about the remote side of the Dialog.
 
 | Parameters | Type | Description
 |------------|------|--------- 
-| uri | string | Remote sip uri. 
+| uri | string | Remote SIP uri. 
 | sdp | string | Remote sdp. 
 | contact | string | Remote contact header.
 
-### sip 
+### SIP 
 Object containing information about the SIP details relating to the Dialog. 
 
 | Parameters | Type | Description

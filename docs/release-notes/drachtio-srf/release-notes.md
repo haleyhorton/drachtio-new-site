@@ -6,10 +6,6 @@
 
 * proxyRequestHeaders and proxyResponseHeaders now can take keyword 'all' to copy SIP headers from A to B leg without specifying them individually.  Can also then selectively remove some; e.g. `proxyRequestHeaders: ['all', '-Authorization']`.  Note that headers such as To, From, Via, Contact, Route, Record-Route are never copied.
 
-## 4.4.25
-
-
-
 ## 4.4.24 
 
 * when calling fnAck provided in Response#send callback, pass the ACK/PRACK message as a parameter (partial fix for [#70](https://github.com/davehorton/drachtio-srf/issues/70))
@@ -23,10 +19,6 @@
 
 * Merge pull request #63 from Telzio/bugfix-isNewDialog
 * for new incoming requests outside of a dialog, req.receiveOn contains the local sip endpoint that received the incoming request [65](https://github.com/davehorton/drachtio-srf/issues/65)
-
-## 4.4.21 
-
-
 
 ## 4.4.20
 

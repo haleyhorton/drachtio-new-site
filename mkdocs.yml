@@ -1,6 +1,7 @@
 site_name: My Docs
 nav:
   - Home: index.md
+  - About: ./about.md
   - developer guide:
     - introduction: ./developer-guide/introduction.md
     - middleware: ./developer-guide/middleware.md
@@ -14,9 +15,11 @@ nav:
     - running: ./drachtio-server/running.md
     - configuring: ./drachtio-server/configuring.md
     - messaging protocol: ./drachtio-server/messaging-protocol.md
+  - API: 
+    - Srf: ./api/srf/srf.md
+  - Middleware: ./application-middleware.md
+  - Apps: ./apps.md
   - release notes:
     - drachtio-srf: ./release-notes/drachtio-srf/release-notes.md
     - drachtio-server: ./release-notes/drachtio-server/release-notes.md
-  - API: 
-    - Srf: ./api/srf/srf.md
   

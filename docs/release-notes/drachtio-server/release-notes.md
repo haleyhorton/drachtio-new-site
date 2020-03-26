@@ -14,9 +14,6 @@
 * travis change to build node 10.x for tests
 * temp revert nta_outgoing_destroy due to crash (#76)
 
-## 0.8.3
-
-
 
 ## 0.8.2 
 
